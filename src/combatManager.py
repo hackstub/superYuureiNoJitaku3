@@ -16,6 +16,7 @@ class CombatManager() :
 
         gameObjects.add(shared.hero)
         gameObjects = gameObjects.union(shared.ennemyManager.ennemies)
+        gameObjects = gameObjects.union(shared.projectiles)
 
         self.damageList = [ ]
 

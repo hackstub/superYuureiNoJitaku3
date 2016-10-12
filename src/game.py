@@ -33,12 +33,18 @@ class Game() :
         shared.ennemyManager.update()
         self.combatManager.update()
 
+        for projectile in list(shared.projectiles) :
+            projectile.update()
+        
         # Render stuff
         shared.view.reset()
 
         shared.map.render()
         shared.ennemyManager.render()
         shared.hero.render()
+
+        for projectile in shared.projectiles :
+            projectile.render()
 
         self.combatManager.render()
 
@@ -71,7 +77,11 @@ class Game() :
             shared.hero.move(moveDirection)
 
         if (keyPressed[pygame.K_e]) :
-            shared.hero.attackKeyHandler()
+            shared.hero.meleeAttackKeyHandler()
+
+        if (keyPressed[pygame.K_f]) :
+            shared.hero.rangedAttackKeyHandler()
+
 
 
 

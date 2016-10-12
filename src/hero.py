@@ -1,6 +1,7 @@
 import pygame
 import pygame.locals
 import shared
+from projectile import Projectile
 
 class Hero() :
 
@@ -17,8 +18,9 @@ class Hero() :
         self.currentSpriteStepTempo = shared.heroWalkingSpriteTempo
         self.busy = False
         
-        self.immunityTempo     = -1
-        
+        self.immunityCooldown = -1
+        self.rangedAttackCooldown = -1
+
         self.updateCurrentSprite()
         
     def position(self) :
@@ -92,18 +94,15 @@ class Hero() :
 
         self.look(direction)
 
-        if   (self.orientation == "back" ) : dx, dy =  0, -shared.heroWalkingSpeed
-        elif (self.orientation == "front") : dx, dy =  0, +shared.heroWalkingSpeed
-        elif (self.orientation == "left" ) : dx, dy = -shared.heroWalkingSpeed, 0
-        elif (self.orientation == "right") : dx, dy = +shared.heroWalkingSpeed, 0
-        
+        dx, dy = shared.directionToVector(self.orientation, shared.heroWalkingSpeed)
+
         if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
             self.x += dx
             self.y += dy
 
         self.spriteUpdate()
 
-    def attackKeyHandler(self) :
+    def meleeAttackKeyHandler(self) :
 
         if (self.busy) :
             return
@@ -112,6 +111,19 @@ class Hero() :
         self.currentSpriteStepTempo = shared.heroAttackSpriteTempo
         self.updateCurrentSprite()
         
+    def rangedAttackKeyHandler(self) :
+
+        if (self.busy) :
+            return
+
+        if (self.rangedAttackCooldown >= 0) :
+            return
+
+        vect = shared.directionToVector(self.orientation, 10)
+        shared.projectiles.add(Projectile(self, self.orientation, vect, timer=10))
+
+        self.rangedAttackCooldown = 10
+
     def emmitDamage(self) :
 
 
@@ -133,19 +145,22 @@ class Hero() :
 
     def receiveDamage(self, damage) :
         
-        if (self.immunityTempo >= 0) :
+        if (self.immunityCooldown >= 0) :
             return
 
         print "Hero took "+str(damage.value)+" damages !"
-        self.immunityTempo = 10
+        self.immunityCooldown = 10
 
 
 
 
     def update(self) :
    
-        if (self.immunityTempo >= 0) :
-            self.immunityTempo -= 1
+        if (self.immunityCooldown >= 0) :
+            self.immunityCooldown -= 1
+        
+        if (self.rangedAttackCooldown >= 0) :
+            self.rangedAttackCooldown -= 1
 
         if (self.busy) :
             self.spriteUpdate()

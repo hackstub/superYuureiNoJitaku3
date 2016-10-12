@@ -15,6 +15,8 @@ class Ennemy() :
         
         self.updateCurrentSprite()
 
+        self.immunityCooldown = -1
+
     def loadSprites(self, path) :
 
         self.sprites          = {}
@@ -72,7 +74,10 @@ class Ennemy() :
 
 
     def update(self) :
-    
+
+        if (self.immunityCooldown >= 0) :
+            self.immunityCooldown -= 1
+
         Dx = shared.hero.x - self.x
         Dy = shared.hero.y - self.y
 
@@ -102,6 +107,9 @@ class Ennemy() :
 
     def receiveDamage(self, damage) :
 
+        if (self.immunityCooldown >= 0) :
+            return
+
         Dx = damage.source.x - self.x
         Dy = damage.source.y - self.y
         
@@ -113,3 +121,4 @@ class Ennemy() :
         self.x -= dx
         self.y -= dy
 
+        self.immunityCooldown = 10
