@@ -2,7 +2,7 @@ import pygame
 import pygame.locals
 import shared
 
-class Character() :
+class Hero() :
 
 
     def __init__(self, spritePath) :
@@ -14,11 +14,16 @@ class Character() :
        
         self.orientation       = "front"
         self.currentSpriteStep = 0
-        self.currentSpriteStepTempo = 2
+        self.currentSpriteStepTempo = shared.heroWalkingSpriteTempo
         self.busy = False
+        
+        self.immunityTempo     = -1
         
         self.updateCurrentSprite()
         
+    def position(self) :
+
+        return (self.x, self.y)
 
     def loadSprites(self, path) :
 
@@ -46,12 +51,12 @@ class Character() :
         self.sprites["attack-front"].append(self.getSprite(spritesImage, 4,  0, 3))
         self.sprites["attack-front"].append(self.getSprite(spritesImage, 4,  3, 3))
         self.sprites["attack-front"].append(self.getSprite(spritesImage, 4,  6, 3))
-        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7, 0, 3))
-        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7, 3, 3))
-        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7, 6, 3))
-        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10,  0, 3))
-        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10,  3, 3))
-        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10,  6, 3))
+        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7,  0, 3))
+        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7,  3, 3))
+        self.sprites["attack-left"] .append(self.getSprite(spritesImage, 7,  6, 3))
+        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10, 0, 3))
+        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10, 3, 3))
+        self.sprites["attack-back"] .append(self.getSprite(spritesImage, 10, 6, 3))
         self.sprites["attack-right"].append(self.getSprite(spritesImage, 13, 0, 3))
         self.sprites["attack-right"].append(self.getSprite(spritesImage, 13, 3, 3))
         self.sprites["attack-right"].append(self.getSprite(spritesImage, 13, 6, 3))
@@ -87,10 +92,10 @@ class Character() :
 
         self.look(direction)
 
-        if   (self.orientation == "back" ) : dx, dy =  0, -2
-        elif (self.orientation == "front") : dx, dy =  0, +2
-        elif (self.orientation == "left" ) : dx, dy = -2, 0
-        elif (self.orientation == "right") : dx, dy = +2, 0
+        if   (self.orientation == "back" ) : dx, dy =  0, -shared.heroWalkingSpeed
+        elif (self.orientation == "front") : dx, dy =  0, +shared.heroWalkingSpeed
+        elif (self.orientation == "left" ) : dx, dy = -shared.heroWalkingSpeed, 0
+        elif (self.orientation == "right") : dx, dy = +shared.heroWalkingSpeed, 0
         
         if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
             self.x += dx
@@ -104,26 +109,43 @@ class Character() :
             return
 
         self.busy = "attack"
-        self.currentSpriteStepTempo = 2
+        self.currentSpriteStepTempo = shared.heroAttackSpriteTempo
         self.updateCurrentSprite()
         
-        if   (self.orientation == "back" ) : hittedNeighbours = [ (0,-1),( 0.7,-0.7), ( 1,0) ] 
-        elif (self.orientation == "front") : hittedNeighbours = [ (0, 1),(-0.7, 0.7), (-1,0) ] 
-        elif (self.orientation == "left" ) : hittedNeighbours = [ (0,-1),(-0.7,-0.7), (-1,0) ] 
-        elif (self.orientation == "right") : hittedNeighbours = [ (0,-1),( 0.7,-0.7), ( 1,0) ] 
-    
-        hittedPositions = []
-        for nX, nY in hittedNeighbours :
-            hittedPositions.append((self.x + nX * shared.tileSize, 
-                                    self.y + nY * shared.tileSize))
+    def emmitDamage(self) :
+
+
+        if (self.busy != "attack") :
+            return [ ]
+
+        if   (self.orientation == "back" ) : hittedNeighbour = [ (1, 0), (0.7,-0.7),  ( 0,-1) ][self.currentSpriteStep]
+        elif (self.orientation == "front") : hittedNeighbour = [ (-1,0), (-0.7, 0.7), ( 0, 1) ][self.currentSpriteStep]
+        elif (self.orientation == "left" ) : hittedNeighbour = [ (0,-1), (-0.7,-0.7), (-1, 0) ][self.currentSpriteStep]
+        elif (self.orientation == "right") : hittedNeighbour = [ (0,-1), ( 0.7,-0.7), ( 1, 0) ][self.currentSpriteStep]
+        
+        hittedPosition = (self.x + hittedNeighbour[0]*shared.tileSize, 
+                          self.y + hittedNeighbour[1]*shared.tileSize)
+
+        return [ shared.Damage(source=self, position=hittedPosition, radius=shared.tileSize, value=1) ]
 
 
 
-        shared.ennemyManager.propagateAttackFromHero(hittedPositions)
+    def receiveDamage(self, damage) :
+        
+        if (self.immunityTempo >= 0) :
+            return
+
+        print "Hero took "+str(damage.value)+" damages !"
+        self.immunityTempo = 10
+
+
 
 
     def update(self) :
-    
+   
+        if (self.immunityTempo >= 0) :
+            self.immunityTempo -= 1
+
         if (self.busy) :
             self.spriteUpdate()
      
@@ -134,12 +156,13 @@ class Character() :
         if (self.currentSpriteStepTempo >= 0) :
             return
         
-        self.currentSpriteStepTempo = 2
         self.currentSpriteStep += 1
 
         if not (self.busy) :
+            self.currentSpriteStepTempo = shared.heroWalkingSpriteTempo
             spriteName = self.orientation
         else :
+            self.currentSpriteStepTempo = shared.heroAttackSpriteTempo
             spriteName = self.busy+"-"+self.orientation
         
         if (self.currentSpriteStep >= len(self.sprites[spriteName])) :

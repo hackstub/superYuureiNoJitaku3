@@ -54,21 +54,21 @@ class Ennemy() :
         
         self.updateCurrentSprite()
 
-    def move(self, direction) :
-        
-        self.look(direction)
-
-        if   (self.orientation == "back" ) : dx, dy =  0, -2
-        elif (self.orientation == "front") : dx, dy =  0, +2
-        elif (self.orientation == "left" ) : dx, dy = -2, 0
-        elif (self.orientation == "right") : dx, dy = +2, 0
-
-        if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
-            self.x += dx
-            self.y += dy
-
-        self.x += dx
-        self.y += dy
+    #def move(self, direction) :
+    #    
+    #    self.look(direction)
+    #
+    #    if   (self.orientation == "back" ) : dx, dy =  0, -shared.ennemyWalkingSpeed
+    #    elif (self.orientation == "front") : dx, dy =  0, +shared.ennemyWalkingSpeed
+    #    elif (self.orientation == "left" ) : dx, dy = -shared.ennemyWalkingSpeed, 0
+    #    elif (self.orientation == "right") : dx, dy = +shared.ennemyWalkingSpeed, 0
+    #
+    #    if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
+    #        self.x += dx
+    #        self.y += dy
+    #
+    #    self.x += dx
+    #    self.y += dy
 
 
     def update(self) :
@@ -80,8 +80,8 @@ class Ennemy() :
         
         if (r >= shared.tileSize) :
             
-            dx = 0.5 * Dx / r
-            dy = 0.5 * Dy / r
+            dx = shared.ennemyWalkingSpeed * Dx / r
+            dy = shared.ennemyWalkingSpeed * Dy / r
 
             if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
                 self.x += dx
@@ -92,17 +92,22 @@ class Ennemy() :
 
         self.currentSprite = self.sprites[self.orientation][self.currentSpriteStep]
 
-    def gotHit(self) :
+    def position(self) :
+        return (self.x, self.y)
 
-        heroX, heroY = shared.hero.x, shared.hero.y
+    def emmitDamage(self) :
 
-        Dx = heroX - self.x
-        Dy = heroY - self.y
+        return [ shared.Damage(source=self, position=self.position(), radius=shared.tileSize, value=1) ]
+
+    def receiveDamage(self, damage) :
+
+        Dx = damage.source.x - self.x
+        Dy = damage.source.y - self.y
         
         r = sqrt(Dx*Dx+Dy*Dy)
             
-        dx = 10 * Dx / r
-        dy = 10 * Dy / r
+        dx = shared.ennemyKnockBack * Dx / r
+        dy = shared.ennemyKnockBack * Dy / r
        
         self.x -= dx
         self.y -= dy

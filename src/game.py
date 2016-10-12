@@ -4,9 +4,7 @@ import pygame
 import pygame.locals
 import shared
 
-from view import View
-from ennemy import Ennemy
-from ennemyManager import EnnemyManager
+from combatManager import CombatManager
 
 class Game() : 
 
@@ -20,6 +18,8 @@ class Game() :
         self.fps = 30
         self.fpsClock = pygame.time.Clock()
 
+        self.combatManager = CombatManager()
+
     def mainLoop(self) :
 
         # Handle events
@@ -31,6 +31,7 @@ class Game() :
         # Update stuff
         shared.hero.update()
         shared.ennemyManager.update()
+        self.combatManager.update()
 
         # Render stuff
         shared.view.reset()

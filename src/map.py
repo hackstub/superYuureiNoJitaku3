@@ -31,11 +31,7 @@ class Map() :
         for layer in mapJson["layers"] :
 
             layerName = layer["name"]
-
-            #if (layer["type"] == "tilelayer") :
             layerData_ = layer["data"]
-            #else :
-            #    layerData = self.makeObjectLayer(layer["objects"], self.width, self.height)
 
             layerData = []
             for data in layerData_ :
