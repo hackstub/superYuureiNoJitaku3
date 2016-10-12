@@ -40,6 +40,8 @@ class Game() :
         shared.ennemyManager.render()
         shared.hero.render()
 
+        self.combatManager.render()
+
         # Update screen
         pygame.display.update()
         self.fpsClock.tick(self.fps)

@@ -1,3 +1,5 @@
+import pygame
+import pygame.locals
 import shared
 from sets import Set
 
@@ -15,13 +17,13 @@ class CombatManager() :
         gameObjects.add(shared.hero)
         gameObjects = gameObjects.union(shared.ennemyManager.ennemies)
 
-        damageList = [ ]
+        self.damageList = [ ]
 
         for obj in gameObjects :
 
-            damageList.extend(obj.emmitDamage())
+            self.damageList.extend(obj.emmitDamage())
              
-        for damage in damageList :
+        for damage in self.damageList :
                 
             damageSourceClass = damage.source.__class__.__name__
 
@@ -36,4 +38,9 @@ class CombatManager() :
                     
                     obj.receiveDamage(damage)
 
-                
+    def render(self) :
+        
+        for d in self.damageList :   
+
+            shared.view.drawCircle((255,0,0),d.position,d.radius,d.value)
+

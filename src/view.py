@@ -42,4 +42,9 @@ class View() :
         self.screen.blit(tile, (pos_x - offset_x, pos_y - offset_y))
 
 
+    def drawCircle(self, color, position, radius, width) :
+
+        x = int(position[0] - self.offset[0])
+        y = int(position[1] - self.offset[1])
+        pygame.draw.circle(self.screen, color, (x,y), int(radius), width)
 

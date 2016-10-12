@@ -126,7 +126,8 @@ class Hero() :
         hittedPosition = (self.x + hittedNeighbour[0]*shared.tileSize, 
                           self.y + hittedNeighbour[1]*shared.tileSize)
 
-        return [ shared.Damage(source=self, position=hittedPosition, radius=shared.tileSize, value=1) ]
+        return [ shared.Damage(source=self, position=hittedPosition,
+            radius=shared.tileSize*0.7, value=1) ]
 
 
 

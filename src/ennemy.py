@@ -78,7 +78,7 @@ class Ennemy() :
 
         r = sqrt(Dx*Dx+Dy*Dy)
         
-        if (r >= shared.tileSize) :
+        if (r >= shared.tileSize*0.7) :
             
             dx = shared.ennemyWalkingSpeed * Dx / r
             dy = shared.ennemyWalkingSpeed * Dy / r
@@ -97,7 +97,8 @@ class Ennemy() :
 
     def emmitDamage(self) :
 
-        return [ shared.Damage(source=self, position=self.position(), radius=shared.tileSize, value=1) ]
+        return [ shared.Damage(source=self, position=self.position(),
+            radius=shared.tileSize*0.7, value=1) ]
 
     def receiveDamage(self, damage) :
 
