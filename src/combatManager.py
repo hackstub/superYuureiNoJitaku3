@@ -15,7 +15,7 @@ class CombatManager() :
         gameObjects = Set() # TODO
 
         gameObjects.add(shared.hero)
-        gameObjects = gameObjects.union(shared.ennemyManager.ennemies)
+        gameObjects = gameObjects.union(shared.ennemies)
         gameObjects = gameObjects.union(shared.projectiles)
 
         self.damageList = [ ]

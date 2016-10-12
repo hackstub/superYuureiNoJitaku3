@@ -1,6 +1,6 @@
 
 from src import shared as s
-from src import game, map, view, hero, tileset, ennemyManager
+from src import tileset, map, view, game, hero, ennemy
 
 
 def main() :
@@ -10,11 +10,10 @@ def main() :
     s.map           = map.Map("assets/map.json")
     s.hero          = hero.Hero("assets/hero.png")
     
-    s.ennemyManager = ennemyManager.EnnemyManager()
-    s.ennemyManager.add((40,40))
-    s.ennemyManager.add((100,30))
+    s.ennemies.add(ennemy.Ennemy((40,40)))
+    s.ennemies.add(ennemy.Ennemy((100,30)))
     
-    s.view          = view.View("Test", (10,9))
+    s.view          = view.View("Test", (20,20))
     
     g               = game.Game();
     

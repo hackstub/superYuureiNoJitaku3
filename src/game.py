@@ -30,23 +30,23 @@ class Game() :
 
         # Update stuff
         shared.hero.update()
-        shared.ennemyManager.update()
-        self.combatManager.update()
 
-        for projectile in list(shared.projectiles) :
-            projectile.update()
+        for ennemy     in list(shared.ennemies)    : ennemy.update()
+        for projectile in list(shared.projectiles) : projectile.update()
+        
+        self.combatManager.update()
         
         # Render stuff
+        
         shared.view.reset()
 
         shared.map.render()
-        shared.ennemyManager.render()
         shared.hero.render()
+        
+        for ennemy     in shared.ennemies    : ennemy.render()
+        for projectile in shared.projectiles : projectile.render()
 
-        for projectile in shared.projectiles :
-            projectile.render()
-
-        self.combatManager.render()
+        #self.combatManager.render()
 
         # Update screen
         pygame.display.update()
