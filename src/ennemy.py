@@ -46,16 +46,10 @@ class Ennemy() :
 
     def render(self) :
        
-        spriteW = self.currentSprite.get_width()
-        spriteH = self.currentSprite.get_height()
-        
-        shared.view.blit(self.currentSprite, (self.x - spriteW/2,  self.y-spriteH/2))
+        shared.view.blit(self.currentSprite, (self.x, self.y))
 
         for damageText, cooldown in self.damageTexts :
-            w = damageText.get_width()
-            shared.view.blit(damageText, (self.x-w/2, self.y-10+cooldown - spriteH/2))
-
-        #shared.view.screen.blit(test, (30, 30))
+            shared.view.blit(damageText, (self.x, self.y+cooldown-shared.tileSize/2))
 
     def look(self, direction) :
 

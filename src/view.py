@@ -36,10 +36,12 @@ class View() :
 
     def blit(self, tile, position) :
 
-        (pos_x    , pos_y   ) = position
-        (offset_x , offset_y) = self.offset
+        (x,        y       ) = position
+        (offset_x, offset_y) = self.offset
 
-        self.screen.blit(tile, (pos_x - offset_x, pos_y - offset_y))
+        w, h = tile.get_size()
+
+        self.screen.blit(tile, (x - w/2 - offset_x, y - h/2 - offset_y))
 
 
     def drawCircle(self, color, position, radius, width) :

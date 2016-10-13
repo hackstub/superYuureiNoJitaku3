@@ -71,11 +71,8 @@ class Hero() :
 
 
     def render(self) :
-       
-        spriteW = self.currentSprite.get_width()
-        spriteH = self.currentSprite.get_height()
         
-        shared.view.blit(self.currentSprite, (self.x - spriteW/2,  self.y-spriteH/2))
+        shared.view.blit(self.currentSprite, (self.x, self.y))
 
 
     def look(self, direction) :

@@ -42,10 +42,7 @@ class Projectile() :
 
     def render(self) :
       
-        spriteW = self.currentSprite.get_width()
-        spriteH = self.currentSprite.get_height()
-        
-        shared.view.blit(self.currentSprite, (self.x - spriteW/2,  self.y-spriteH/2))
+        shared.view.blit(self.currentSprite, (self.x, self.y))
 
 
     def look(self, direction) :
@@ -78,7 +75,7 @@ class Projectile() :
         position = (self.x, self.y)
 
         return [ shared.Damage(source=self, position=position,
-            radius=shared.tileSize*0.7, value=1) ]
+            radius=shared.tileSize*0.7, value=2) ]
 
     def receiveDamage(self, damage) :
 
