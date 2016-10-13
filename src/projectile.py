@@ -75,7 +75,7 @@ class Projectile() :
 
     def emmitDamage(self) :
 
-        position = (self.x+2*self.vect[0], self.y+2*self.vect[1])
+        position = (self.x, self.y)
 
         return [ shared.Damage(source=self, position=position,
             radius=shared.tileSize*0.7, value=1) ]

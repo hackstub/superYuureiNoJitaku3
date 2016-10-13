@@ -46,7 +46,7 @@ class Game() :
         for ennemy     in shared.ennemies    : ennemy.render()
         for projectile in shared.projectiles : projectile.render()
 
-        #self.combatManager.render()
+        self.combatManager.render()
 
         # Update screen
         pygame.display.update()

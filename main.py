@@ -1,7 +1,8 @@
 
 from src import shared as s
 from src import tileset, map, view, game, hero, ennemy
-
+import pygame
+from pygame.locals import *
 
 def main() :
 
@@ -16,6 +17,8 @@ def main() :
     s.view          = view.View("Test", (20,20))
     
     g               = game.Game();
+        
+    s.damageFont = pygame.font.Font("./assets/bitdust2.ttf",10)
     
     while True :
         g.mainLoop()

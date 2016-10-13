@@ -1,6 +1,10 @@
 from math import sqrt
 from sets import Set
 
+import pygame
+from pygame.locals import *
+
+
 tileSize               = 16
 
 heroWalkingSpriteTempo = 4
@@ -36,6 +40,21 @@ class Damage() :
         self.position = position
         self.radius   = radius
         self.value    = value
+
+    def makeDamageText(self, insideColor = (255,255,255), outsideColor=(0,0,0)) :
+
+        textIn   = damageFont.render(str(self.value), 1, insideColor )
+        textOut  = damageFont.render(str(self.value), 1, outsideColor)
+        size = textIn.get_width() + 2, textIn.get_height() + 2
+        s = pygame.Surface(size, pygame.SRCALPHA, 32)
+        s.blit(textOut,(0,0))    
+        s.blit(textOut,(2,2))    
+        s.blit(textOut,(2,0))    
+        s.blit(textOut,(0,2))    
+        s.blit(textIn, (1,1))    
+
+        return s
+
 
 
 projectiles = Set()

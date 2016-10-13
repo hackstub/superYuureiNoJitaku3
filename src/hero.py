@@ -139,7 +139,7 @@ class Hero() :
                           self.y + hittedNeighbour[1]*shared.tileSize)
 
         return [ shared.Damage(source=self, position=hittedPosition,
-            radius=shared.tileSize*0.7, value=1) ]
+            radius=shared.tileSize*0.7, value=123) ]
 
 
 

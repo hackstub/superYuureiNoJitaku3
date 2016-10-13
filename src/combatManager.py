@@ -43,5 +43,5 @@ class CombatManager() :
         
         for d in self.damageList :   
 
-            shared.view.drawCircle((255,0,0),d.position,d.radius,d.value)
+            shared.view.drawCircle((255,0,0,100),d.position,d.radius,1)
 
