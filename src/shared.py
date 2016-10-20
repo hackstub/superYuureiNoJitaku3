@@ -32,6 +32,16 @@ def directionToVector(d, mag) :
 
     return (0,0)
 
+def isWalkable(source, pos, ignoreEnnemies = False) :
+
+    if not (map.isWalkable(pos)) : return False
+    if (source != hero) and (distance(hero.position(), pos) < tileSize) : return False 
+    if not (ignoreEnnemies) :
+        for ennemy in ennemies :
+            if (source != ennemy) and (distance(ennemy.position(), pos) < tileSize) : return False
+
+    return True
+
 class Damage() :
 
     def __init__(self, source, position, radius, value) :

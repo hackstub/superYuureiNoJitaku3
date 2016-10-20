@@ -16,9 +16,9 @@ def main() :
     
     s.view          = view.View("Test", (20,20))
     
-    g               = game.Game();
+    g               = game.Game()
         
-    s.damageFont = pygame.font.Font("./assets/bitdust2.ttf",10)
+    s.damageFont    = pygame.font.Font("./assets/bitdust2.ttf",10)
     
     while True :
         g.mainLoop()

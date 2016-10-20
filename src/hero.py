@@ -93,7 +93,7 @@ class Hero() :
 
         dx, dy = shared.directionToVector(self.orientation, shared.heroWalkingSpeed)
 
-        if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
+        if (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
             self.x += dx
             self.y += dy
 

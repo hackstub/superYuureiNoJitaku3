@@ -101,10 +101,15 @@ class Ennemy() :
             
             dx = shared.ennemyWalkingSpeed * Dx / r
             dy = shared.ennemyWalkingSpeed * Dy / r
-
-            if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
+            
+            if (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
                 self.x += dx
                 self.y += dy
+                return
+            #if not (shared.isWalkable(self, (self.x, self.y))) :
+            #    self.x += dx
+            #    self.y += dy
+            #    return
 
 
     def updateCurrentSprite(self) :
@@ -117,27 +122,53 @@ class Ennemy() :
     def emmitDamage(self) :
 
         return [ shared.Damage(source=self, position=self.position(),
-            radius=shared.tileSize*0.7, value=1) ]
+            radius=shared.tileSize*1.05, value=1) ]
 
     def receiveDamage(self, damage) :
 
-        if (self.immunityCooldown >= 0) :
+        damageSourceClass = damage.source.__class__.__name__
+
+        if (damageSourceClass == self.__class__.__name__) :
             return
 
-        self.damageTexts.append((damage.makeDamageText(),5))
+        if (self.immunityCooldown >= 0) :
+            return
 
         Dx = damage.source.x - self.x
         Dy = damage.source.y - self.y
         
         r = sqrt(Dx*Dx+Dy*Dy)
+
+        Dx /= r
+        Dy /= r
+ 
         
         knockBack = shared.ennemyKnockBack * damage.value/100
         if (knockBack < 3) : knockBack = 3
 
-        dx = knockBack * Dx / r
-        dy = knockBack * Dy / r
-       
-        self.x -= dx
-        self.y -= dy
-
+        self.knockBack(knockBack, (Dx, Dy))
+        self.damageTexts.append((damage.makeDamageText(),5))
         self.immunityCooldown = 10
+
+    def knockBack(self, knockBack, Dp) :
+
+        Dx, Dy = Dp
+        kOrigin = knockBack
+
+        while knockBack > 0 :
+
+            dx = knockBack * Dx
+            dy = knockBack * Dy
+          
+            if (shared.isWalkable(self, (self.x-dx, self.y-dy), ignoreEnnemies = True)) :
+                self.x -= dx
+                self.y -= dy
+                
+                if not (shared.isWalkable(self, (self.x, self.y))) :
+                    self.knockBack(kOrigin, Dp)
+                return
+            else :
+                knockBack -= 1
+
+
+

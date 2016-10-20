@@ -11,7 +11,6 @@ class Map() :
 
     def __init__(self,mapJsonPath) :
 
-        self.groundImage = pygame.image.load("assets/ground.png")
         self.layers   = self.load(mapJsonPath)
 
     def render(self) :
@@ -45,24 +44,26 @@ class Map() :
 
         for (i, tileId) in enumerate(layerToRender) :
 
-            xPix = (i % self.width) * shared.tileSize
-            yPix = (i / self.width) * shared.tileSize
+            xPix = ((i % self.width) + 0.5) * shared.tileSize
+            yPix = ((i / self.width) + 0.5)* shared.tileSize
 
             if (tileId != -1) :
                 shared.view.blit(shared.tileset.tiles[tileId], (xPix,yPix))
 
-    def getWalkability(self, x_, y_) :
+    def isWalkable(self, pos) :
+
+        x_, y_ = pos
 
         if (x_ < 0) or (x_ >= self.width * shared.tileSize) \
         or (y_ < 0) or (y_ >= self.height * shared.tileSize) :
             return False
-        
+       
         neighbours = [ (1,1), (1,-1), (-1,1), (-1,-1) ]
 
         for dx, dy in neighbours :
 
-            x = int(float(x_ + 0.5 * dx * shared.tileSize) / shared.tileSize)
-            y = int(float(y_ + 0.5 * dy * shared.tileSize) / shared.tileSize)
+            x = int(float(x_ + 0.4 * dx * shared.tileSize) / shared.tileSize)
+            y = int(float(y_ + 0.4 * dy * shared.tileSize) / shared.tileSize)
             if (x < 0) or (x >= self.width) or (y < 0) or (y >= self.height) :
                 return False
 

@@ -26,14 +26,16 @@ class CombatManager() :
              
         for damage in self.damageList :
                 
-            damageSourceClass = damage.source.__class__.__name__
+            #damageSourceClass = damage.source.__class__.__name__
 
             for obj in gameObjects :
 
-                objClass = obj.__class__.__name__
+                if (obj == damage.source) : continue
 
-                if (damageSourceClass == objClass) :
-                    continue
+                #objClass = obj.__class__.__name__
+
+                #if (damageSourceClass == objClass) :
+                #    continue
 
                 if (shared.distance(damage.position, obj.position()) < damage.radius) :
                     
