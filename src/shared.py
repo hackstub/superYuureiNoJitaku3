@@ -1,5 +1,4 @@
 from math import sqrt
-from sets import Set
 
 import pygame
 from pygame.locals import *
@@ -67,5 +66,5 @@ class Damage() :
 
 
 
-projectiles = Set()
-ennemies = Set()
+projectiles = set()
+ennemies = set()

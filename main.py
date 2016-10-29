@@ -1,5 +1,11 @@
 
-from src import shared as s
+import sys
+
+if sys.version_info[0] == 3:
+	import shared as s
+else:
+	import src.shared as s
+
 from src import tileset, map, view, game, hero, ennemy
 import pygame
 from pygame.locals import *

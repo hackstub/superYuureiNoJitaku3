@@ -21,8 +21,8 @@ class Tileset() :
         
         self.tiles = []
 
-        for tileY in range(0, self.tilesetHeight / shared.tileSize):
-            for tileX in range(0, self.tilesetWidth / shared.tileSize):
+        for tileY in range(0, int(self.tilesetHeight / shared.tileSize)):
+            for tileX in range(0, int(self.tilesetWidth / shared.tileSize)):
 
                 tile = (tileX * shared.tileSize, tileY * shared.tileSize, 
                                 shared.tileSize,         shared.tileSize)
@@ -36,11 +36,11 @@ class Tileset() :
         
         self.mask = [ ]
 
-        for y in range(0, self.tilesetHeight / shared.tileSize) :
+        for y in range(0, int(self.tilesetHeight / shared.tileSize)):
         
             row = []
     
-            for x in range(0, self.tilesetWidth / shared.tileSize) :
+            for x in range(0, int(self.tilesetWidth / shared.tileSize)):
 
                 (r, g, b, a) = pix[ (x+0.5)*shared.tileSize, (y+0.5)*shared.tileSize]
 
