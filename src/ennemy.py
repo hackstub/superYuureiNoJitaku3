@@ -89,14 +89,11 @@ class Ennemy() :
 
         if (r >= shared.tileSize*0.7) :
         
-
             dx = shared.ennemyWalkingSpeed * Dx / r
             dy = shared.ennemyWalkingSpeed * Dy / r
             
-            if (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
-                self.x += dx
-                self.y += dy
-            elif not (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
+            if (shared.isWalkable(self, (self.x+dx, self.y+dy))
+            or (not shared.isWalkable(self, (self.x, self.y), ignoreEnnemies = True))) :
                 self.x += dx
                 self.y += dy
 
@@ -157,5 +154,6 @@ class Ennemy() :
                     self.knockBack = None
         else : self.knockBack = None
 
-
+    def dealtDamage(self, entity) :
+        pass
 

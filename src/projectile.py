@@ -10,6 +10,7 @@ class Projectile() :
         self.x = source.x + vect[0]
         self.y = source.y + vect[1]
 
+        self.source            = source
         self.orientation       = orientation
         self.vect              = vect
         self.timer             = timer
@@ -53,15 +54,28 @@ class Projectile() :
 
 
     def update(self) :
-    
+ 
+        if (not shared.isWalkable(self, self.position(), ignoreEnnemies = True, ignoreList = [ self.source ] )) :
+            self.timer = -1
+
+        if (self.timer < 0) :
+            self.destroy()
+            return
+
         self.x += self.vect[0]
         self.y += self.vect[1]
         
         self.timer -= 1
 
-        if (self.timer < 0) :
+
+    def destroy(self) :
+
+        try : 
             shared.projectiles.remove(self)
             del self
+        except :
+            print "DELETING PROJECTILE FAILED, LOL !"
+                
 
     def updateCurrentSprite(self) :
 
@@ -78,8 +92,8 @@ class Projectile() :
             radius=shared.tileSize*0.7, value=2) ]
 
     def receiveDamage(self, damage) :
-
-        self.timer = -1
+        pass 
             
-
+    def dealtDamage(self, entity) :
+        self.timer = -1
 

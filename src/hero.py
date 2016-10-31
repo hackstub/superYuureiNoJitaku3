@@ -195,3 +195,6 @@ class Hero() :
         
         self.currentSprite = self.sprites[spriteName][self.currentSpriteStep]
 
+    def dealtDamage(self, entity) :
+        pass
+
