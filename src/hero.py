@@ -8,8 +8,8 @@ class Hero() :
 
     def __init__(self, spritePath) :
 
-        self.x = shared.map.width  * shared.tileSize / 2 
-        self.y = shared.map.height * shared.tileSize / 2 
+        self.x = (shared.map.width  + 3) * shared.tileSize / 2 
+        self.y = (shared.map.height )    * shared.tileSize / 2 
        
         self.loadSprites(spritePath)
        

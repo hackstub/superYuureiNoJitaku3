@@ -16,6 +16,7 @@ class Ennemy() :
         self.updateCurrentSprite()
 
         self.immunityCooldown = -1
+        self.knockBack = None
         
         self.damageTexts = []
 
@@ -57,23 +58,6 @@ class Ennemy() :
         
         self.updateCurrentSprite()
 
-    #def move(self, direction) :
-    #    
-    #    self.look(direction)
-    #
-    #    if   (self.orientation == "back" ) : dx, dy =  0, -shared.ennemyWalkingSpeed
-    #    elif (self.orientation == "front") : dx, dy =  0, +shared.ennemyWalkingSpeed
-    #    elif (self.orientation == "left" ) : dx, dy = -shared.ennemyWalkingSpeed, 0
-    #    elif (self.orientation == "right") : dx, dy = +shared.ennemyWalkingSpeed, 0
-    #
-    #    if (shared.map.getWalkability(self.x+dx, self.y+dy)) :
-    #        self.x += dx
-    #        self.y += dy
-    #
-    #    self.x += dx
-    #    self.y += dy
-
-
     def update(self) :
 
         # Damage texts cooldown
@@ -90,26 +74,31 @@ class Ennemy() :
         if (self.immunityCooldown >= 0) :
             self.immunityCooldown -= 1
 
-        # Movement
+        # Knockback
+
+        if (self.knockBack != None) :
+            self.updateKnockback()
+            return
+
+        # Standard IA
 
         Dx = shared.hero.x - self.x
         Dy = shared.hero.y - self.y
 
         r = sqrt(Dx*Dx+Dy*Dy)
-        
+
         if (r >= shared.tileSize*0.7) :
-            
+        
+
             dx = shared.ennemyWalkingSpeed * Dx / r
             dy = shared.ennemyWalkingSpeed * Dy / r
             
             if (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
                 self.x += dx
                 self.y += dy
-                return
-            #if not (shared.isWalkable(self, (self.x, self.y))) :
-            #    self.x += dx
-            #    self.y += dy
-            #    return
+            elif not (shared.isWalkable(self, (self.x+dx, self.y+dy))) :
+                self.x += dx
+                self.y += dy
 
 
     def updateCurrentSprite(self) :
@@ -139,36 +128,34 @@ class Ennemy() :
         
         r = sqrt(Dx*Dx+Dy*Dy)
 
-        Dx /= r
-        Dy /= r
- 
-        
-        knockBack = shared.ennemyKnockBack * damage.value/100
-        if (knockBack < 3) : knockBack = 3
+        dx = Dx / r
+        dy = Dy / r
 
-        self.knockBack(knockBack, (Dx, Dy))
+        knockBackForce = shared.ennemyKnockBack * damage.value/100
+        if (knockBackForce < 3) : knockBackForce = 3
+
         self.damageTexts.append((damage.makeDamageText(),5))
         self.immunityCooldown = 10
+        dx *= knockBackForce
+        dy *= knockBackForce
+        self.knockBack = (2, (dx, dy))
+        self.updateKnockback()
 
-    def knockBack(self, knockBack, Dp) :
+    def updateKnockback(self) :
 
-        Dx, Dy = Dp
-        kOrigin = knockBack
+        cooldown, dp = self.knockBack
+        dx, dy = dp
 
-        while knockBack > 0 :
-
-            dx = knockBack * Dx
-            dy = knockBack * Dy
-          
-            if (shared.isWalkable(self, (self.x-dx, self.y-dy), ignoreEnnemies = True)) :
-                self.x -= dx
-                self.y -= dy
-                
-                if not (shared.isWalkable(self, (self.x, self.y))) :
-                    self.knockBack(kOrigin, Dp)
-                return
-            else :
-                knockBack -= 1
+        if (shared.isWalkable(self, (self.x-dx, self.y-dy), ignoreEnnemies = True)) :
+            self.x -= dx
+            self.y -= dy
+            cooldown -= 1
+            self.knockBack = (cooldown, dp)
+        
+            if (cooldown < 0) : 
+                if (shared.isWalkable(self, (self.x, self.y))) :
+                    self.knockBack = None
+        else : self.knockBack = None
 
 
 

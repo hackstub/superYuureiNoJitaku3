@@ -12,7 +12,7 @@ heroWalkingSpeed       = 2
 heroAttackSpriteTempo  = 2
 
 ennemyWalkingSpeed     = 0.5
-ennemyKnockBack        = tileSize
+ennemyKnockBack        = 6
 
 
 
