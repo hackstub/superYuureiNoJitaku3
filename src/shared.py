@@ -64,6 +64,58 @@ def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 
     return True
 
+
+def makeMaskFromPolygon(vertices, blurRadius = 10) :
+    
+    from PIL import Image, ImageFilter
+    
+    base = pygame.Surface((2000,2000), flags=SRCALPHA)
+    base.fill((0,0,0,0))
+
+    offseted_vertices = [ (x+1000,y+1000) for x,y in vertices ]
+    rect = pygame.draw.polygon(base, (255,255,255,255), offseted_vertices)
+  
+    margin = 25
+
+    surf = base.subsurface((rect.x     -   margin, rect.y      -   margin,
+                            rect.width + 2*margin, rect.height + 2*margin))
+    
+    offset_x, offset_y = 1000-rect.x+margin, 1000-rect.y+margin
+    
+
+    # convert surf to PIL image
+    surf_size = surf.get_size()
+    surf_in_string = pygame.image.tostring(surf, "RGBA", False)
+    pil_image = Image.frombytes("RGBA",surf_size, surf_in_string)
+
+    # blur image
+    pil_blured = pil_image.filter(ImageFilter.GaussianBlur(radius=blurRadius))
+
+    # convert it back to a pygame surface
+    surf = pygame.image.fromstring(pil_blured.tobytes("raw", "RGBA"), surf_size, "RGBA")
+
+    return ((offset_x, offset_y), surf)
+
+def makeMask(size, maskList) :
+
+    globalW, globalH = size
+    base = pygame.Surface((globalW, globalH), flags=SRCALPHA)
+    base.fill((0,0,0,255))
+    
+    for x,y, mask in maskList :
+
+        w, h = mask.get_size() 
+        
+        for i in range(0,w) :
+            for j in range(0,h) :
+                m = mask.get_at((i,j))
+                b = base.get_at((x+i,y+j))
+                a = b[3] - m[0]
+                if (a < 0) : a = 0
+                b = base.set_at((x+i,y+j), (b[0], b[1], b[2], a))
+
+    return base
+
 class Damage() :
 
     def __init__(self, source, position, radius, value) :

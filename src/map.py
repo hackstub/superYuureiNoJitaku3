@@ -32,8 +32,8 @@ class Map() :
                 layerData = [ data-1 for data in layer["data"] ]
             elif (layerName == "objects") :
                 layerData = self.makeObjectLayer(layer["objects"])
-            else :
-                print "SKIPPING UNKNOWN LAYER "+layerName+" LOL !"
+            elif (layerName == "vision") :
+                layerData = self.makeVisionLayer(layer["objects"])
 
             self.layer[layerName] = layerData
 
@@ -62,6 +62,42 @@ class Map() :
 
         return objectLayer
 
+    def pixelSize(self) :
+        return (self.width * shared.tileSize, self.height * shared.tileSize)
+
+    def makeVisionLayer(self, data) :
+       
+        visionLayer = { }
+
+        for obj in data :
+
+            if (obj["type"] != "FieldOfVision") : continue
+            
+            baseX, baseY = obj["x"], obj["y"]
+
+            vertices = []
+            for pos in obj["polyline"] :
+                #vertex = (baseX+pos["x"], baseY+pos["y"])
+                vertex = (pos["x"], pos["y"])
+                vertices.append(vertex)
+
+            masksurf = shared.makeMaskFromPolygon(vertices)
+            masksurf = (baseX-masksurf[0][0], baseY-masksurf[0][1], masksurf[1])
+
+            visionLayer[obj["name"]] = {"vertices" : vertices, "x" : baseX, "y" : baseY, "masksurf" : masksurf }
+
+        maskList = [ mask["masksurf"] for mask in visionLayer.values() ]
+
+        self.globalMask = shared.makeMask(self.pixelSize(), maskList)
+
+        return visionLayer
+
+    def renderVision(self) :
+
+        shared.view.blitSurf(self.globalMask, (0,0))
+
+
+
     def renderLayer(self, layerName) :
 
         layerToRender = self.layer[layerName]
@@ -80,7 +116,6 @@ class Map() :
             else :
                 tile.render()
 
-
     def update(self) :
 
         pass        
@@ -90,6 +125,7 @@ class Map() :
         self.renderLayer("ground")
         self.renderLayer("mid")
         self.renderLayer("objects")
+        self.renderVision()
 
     def isWalkable(self, pos) :
 

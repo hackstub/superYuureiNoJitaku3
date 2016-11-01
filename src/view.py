@@ -50,6 +50,15 @@ class View() :
         self.screen.blit(tile, (x - w/2 - offset_x, y - h/2 - offset_y))
 
 
+    def blitSurf(self, surf, position) :
+        
+        (x,        y       ) = position
+        (offset_x, offset_y) = self.offset
+        
+        self.screen.blit(surf, (x - offset_x, y - offset_y))
+
+
+
     def drawCircle(self, color, position, radius, width) :
 
         x = int(position[0] - self.offset[0])
