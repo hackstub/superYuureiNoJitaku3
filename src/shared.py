@@ -15,7 +15,8 @@ heroAttackSpriteTempo  = 2
 ennemyWalkingSpeed     = tileSize / 32
 ennemyKnockBack        = tileSize / 3
 
-
+#debug = False
+debug = True
 
 def distance(pos1, pos2) :
     
@@ -36,10 +37,10 @@ def directionToVector(d, mag) :
 
 def strToObjectClass(className):
 
-    prefix = "src.gameObjects."
-    # load the module, will raise ImportError if module cannot be loaded
-    m = importlib.import_module(prefix+className)
-    # get the class, will raise AttributeError if class cannot be found
+    moduleName = "gameObjects."+className[0].lower() + className[1:]
+
+    m = importlib.import_module(moduleName)
+    
     c = getattr(m, className)
 
     return c

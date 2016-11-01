@@ -4,8 +4,6 @@ import pygame
 import pygame.locals
 import shared
 
-import gameObjects.gameObjects
-
 from combatManager import CombatManager
 
 class Game() : 
@@ -48,7 +46,7 @@ class Game() :
         for ennemy     in shared.ennemies    : ennemy.render()
         for projectile in shared.projectiles : projectile.render()
 
-        self.combatManager.render()
+        if (shared.debug) : self.combatManager.render()
 
         # Update screen
         pygame.display.update()

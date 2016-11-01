@@ -33,7 +33,7 @@ class Map() :
             elif (layerName == "objects") :
                 layerData = self.makeObjectLayer(layer["objects"])
             else :
-                print "SKIPPING UNKNOWN LAYER"+layerName+" LOL !"
+                print "SKIPPING UNKNOWN LAYER "+layerName+" LOL !"
 
             self.layer[layerName] = layerData
 
@@ -42,12 +42,9 @@ class Map() :
         objectLayer = []
 
         for i in range(0,self.width * self.height) :
-            objectLayer.append(None)
+            objectLayer.append(-1)
 
         for obj in data :
-
-            print obj["type"]
-            print obj["name"]
 
             x = int(obj["x"]) / int(obj["width"])
             y = int(obj["y"]) / int(obj["width"]) - 1
@@ -57,13 +54,11 @@ class Map() :
             properties = obj.get("properties",None)
             name       = obj["name"]
 
-            #c = shared.strToObjectClass(objType)
-            print "Attempting to load a " + objType + " objects"
-            print name
-            print x, y
-            print properties
-            #theObj = c(name, x, y, (tileId, self.tileset.tiles[tileId - 1]), properties)
-            #objectLayer[x + y * self.width] = theObj
+            print "Loading object " + name + " (" + objType + ") ..."
+
+            c = shared.strToObjectClass(objType)
+            theObj = c(name, x, y, (tileId, shared.tileset.tiles[tileId - 1]), properties)
+            objectLayer[x + y * self.width] = theObj
 
         return objectLayer
 
@@ -73,13 +68,18 @@ class Map() :
 
         #print layerToRender
 
-        for (i, tileId) in enumerate(layerToRender) :
+        for (i, tile) in enumerate(layerToRender) :
+            
+            if (tile == -1) : continue
 
             xPix = ((i % self.width) + 0.5) * shared.tileSize
             yPix = ((i / self.width) + 0.5) * shared.tileSize
 
-            if (tileId != -1) :
-                shared.view.blit(shared.tileset.tiles[tileId], (xPix,yPix))
+            if (type(tile) == int) :
+                shared.view.blit(shared.tileset.tiles[tile], (xPix,yPix))
+            else :
+                tile.render()
+
 
     def update(self) :
 
@@ -89,7 +89,7 @@ class Map() :
     
         self.renderLayer("ground")
         self.renderLayer("mid")
-        #self.renderLayer("objects")
+        self.renderLayer("objects")
 
     def isWalkable(self, pos) :
 

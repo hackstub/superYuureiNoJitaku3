@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="spawnHero" color="#ffbe3e"/>
- <objecttype name="spawnMonster" color="#ff0002">
+ <objecttype name="SpawnHero" color="#ffbe3e"/>
+ <objecttype name="SpawnMonster" color="#ff0002">
   <property name="monsterType" type="string"/>
   <property name="triggerId" type="int" default="-1"/>
  </objecttype>
- <objecttype name="door" color="#a0a0a4">
+ <objecttype name="Door" color="#a0a0a4">
   <property name="state" type="bool" default="false"/>
   <property name="triggerId" type="int" default="-1"/>
  </objecttype>
- <objecttype name="trigger" color="#58d466">
+ <objecttype name="Trigger" color="#58d466">
   <property name="condition" type="string"/>
   <property name="id" type="int" default="-1"/>
  </objecttype>
- <objecttype name="switch" color="#ff751c">
+ <objecttype name="Switch" color="#ff751c">
   <property name="id" type="int" default="-1"/>
  </objecttype>
- <objecttype name="coffre" color="#0081ff">
+ <objecttype name="Chest" color="#0081ff">
   <property name="content" type="string"/>
   <property name="state" type="bool" default="false"/>
  </objecttype>
- <objecttype name="key" color="#2a7aff">
+ <objecttype name="Key" color="#2a7aff">
   <property name="state" type="bool" default="false"/>
  </objecttype>
- <objecttype name="teleportIn" color="#a0a0a4">
+ <objecttype name="TeleportIn" color="#a0a0a4">
   <property name="idOut" type="int" default="-1"/>
  </objecttype>
- <objecttype name="teleportOut" color="#a0a0a4">
+ <objecttype name="TeleportOut" color="#a0a0a4">
   <property name="id" type="int" default="-1"/>
  </objecttype>
- <objecttype name="challenge" color="#ff0095">
+ <objecttype name="Challenge" color="#ff0095">
   <property name="triggerCompletionId" type="int" default="-1"/>
   <property name="triggerInitId" type="int" default="-1"/>
  </objecttype>
- <objecttype name="fieldOfVision" color="#ed59eb">
+ <objecttype name="FieldOfVision" color="#ed59eb">
   <property name="triggerId" type="int" default="-1"/>
  </objecttype>
 </objecttypes>

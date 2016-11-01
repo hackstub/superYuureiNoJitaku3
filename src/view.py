@@ -34,12 +34,18 @@ class View() :
  
 
 
-    def blit(self, tile, position) :
+    def blit(self, tile, position, debug = False) :
 
         (x,        y       ) = position
         (offset_x, offset_y) = self.offset
 
         w, h = tile.get_size()
+
+        if (debug) :
+            s = pygame.Surface((100,100), pygame.SRCALPHA)
+            s.fill((255,255,255,200)) 
+            tile = tile.copy()
+            tile.blit(s,(0,0))
 
         self.screen.blit(tile, (x - w/2 - offset_x, y - h/2 - offset_y))
 

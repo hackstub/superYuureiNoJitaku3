@@ -1,6 +1,6 @@
 
-from src import shared as s
-from src import tileset, map, view, game, hero, ennemy
+import shared as s
+import tileset, map, view, game, hero, ennemy
 import pygame
 from pygame.locals import *
 
@@ -18,7 +18,7 @@ def main() :
     
     g               = game.Game()
         
-    s.damageFont    = pygame.font.Font("./assets/bitdust2.ttf",10)
+    s.damageFont    = pygame.font.Font("./assets/bitdust2.ttf",14)
     
     while True :
         g.mainLoop()
