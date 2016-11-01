@@ -8,8 +8,8 @@ class Hero() :
 
     def __init__(self, spritePath) :
 
-        self.x = (shared.map.width  + 3) * shared.tileSize / 2 
-        self.y = (shared.map.height )    * shared.tileSize / 2 
+        self.x = 10 * shared.tileSize
+        self.y = 10 * shared.tileSize
        
         self.loadSprites(spritePath)
        
@@ -116,7 +116,7 @@ class Hero() :
         if (self.rangedAttackCooldown >= 0) :
             return
 
-        vect = shared.directionToVector(self.orientation, 10)
+        vect = shared.directionToVector(self.orientation, shared.tileSize / 2)
         shared.projectiles.add(Projectile(self, self.orientation, vect, timer=10))
 
         self.rangedAttackCooldown = 10

@@ -4,6 +4,8 @@ import pygame
 import pygame.locals
 import shared
 
+import gameObjects.gameObjects
+
 from combatManager import CombatManager
 
 class Game() : 

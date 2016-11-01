@@ -1,18 +1,19 @@
 from math import sqrt
 from sets import Set
 
+import importlib
 import pygame
 from pygame.locals import *
 
 
-tileSize               = 16
+tileSize               = 32
 
 heroWalkingSpriteTempo = 4
-heroWalkingSpeed       = 2
+heroWalkingSpeed       = tileSize / 8
 heroAttackSpriteTempo  = 2
 
-ennemyWalkingSpeed     = 0.5
-ennemyKnockBack        = 6
+ennemyWalkingSpeed     = tileSize / 32
+ennemyKnockBack        = tileSize / 3
 
 
 
@@ -31,6 +32,17 @@ def directionToVector(d, mag) :
     if (d == "right") :                  return (+mag, 0)
 
     return (0,0)
+
+
+def strToObjectClass(className):
+
+    prefix = "src.gameObjects."
+    # load the module, will raise ImportError if module cannot be loaded
+    m = importlib.import_module(prefix+className)
+    # get the class, will raise AttributeError if class cannot be found
+    c = getattr(m, className)
+
+    return c
 
 def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 

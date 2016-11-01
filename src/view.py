@@ -26,7 +26,7 @@ class View() :
     
     def reset(self) :
 
-        self.screen.fill( (0,0,0) )
+        self.screen.fill( (255,0,255) )
 
         offset_x = shared.hero.x - self.widthPix  / 2
         offset_y = shared.hero.y - self.heightPix / 2
