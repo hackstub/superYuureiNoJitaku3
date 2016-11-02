@@ -4,7 +4,6 @@ import pygame
 import pygame.locals
 import shared
 
-from combatManager import CombatManager
 
 class Game() : 
 
@@ -17,8 +16,6 @@ class Game() :
         # Set up FPS clock
         self.fps = 30
         self.fpsClock = pygame.time.Clock()
-
-        self.combatManager = CombatManager()
 
     def mainLoop(self) :
 
@@ -34,7 +31,8 @@ class Game() :
         for ennemy     in list(shared.ennemies)    : ennemy.update()
         for projectile in list(shared.projectiles) : projectile.update()
         
-        self.combatManager.update()
+        shared.combatManager.update()
+        shared.visionManager.update()
         
         # Render stuff
         
@@ -46,9 +44,8 @@ class Game() :
         for ennemy     in shared.ennemies    : ennemy.render()
         for projectile in shared.projectiles : projectile.render()
 
-        if (shared.debug) : self.combatManager.render()
-
-        shared.view.renderGlobalMask()
+        if (shared.debug) : shared.combatManager.render()
+        shared.visionManager.render()
 
         # Update screen
         pygame.display.update()

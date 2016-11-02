@@ -33,12 +33,10 @@ class Map() :
             elif (layerName == "objects") :
                 layerData = self.makeObjectLayer(layer["objects"])
             elif (layerName == "vision") :
-                layerData = self.makeVisionLayer(layer["objects"])
+                self.makeVisionLayer(layer["objects"])
 
             self.layer[layerName] = layerData
         
-        shared.view.setGlobalMask(self.pixelSize(), [self.layer["vision"]["spawn"]])
-
     def pixelSize(self) :
         return (self.width * shared.tileSize, self.height * shared.tileSize)
 
@@ -59,7 +57,7 @@ class Map() :
             properties = obj.get("properties",None)
             name       = obj["name"]
 
-            print "Loading object " + name + " (" + objType + ") ..."
+            #print "Loading object " + name + " (" + objType + ") ..."
 
             c = shared.strToObjectClass(objType)
             theObj = c(name, x, y, (tileId, shared.tileset.tiles[tileId - 1]), properties)
@@ -69,27 +67,15 @@ class Map() :
 
     def makeVisionLayer(self, data) :
        
-        visionLayer = { }
-
         for obj in data :
 
             if (obj["type"] != "FieldOfVision") : continue
+           
+            shared.visionManager.addZone(obj)
             
-            vertices = [ (pos["x"], pos["y"]) for pos in obj["polyline"] ]
-            
-            offset_x, offset_y, masksurf = shared.view.makeMaskFromPolygon(vertices)
-
-            visionLayer[obj["name"]] = { "x"    : obj["x"] - offset_x,
-                                         "y"    : obj["y"] - offset_y,
-                                         "surf" : masksurf }
-        
-        return visionLayer
-
     def renderLayer(self, layerName) :
 
         layerToRender = self.layer[layerName]
-
-        #print layerToRender
 
         for (i, tile) in enumerate(layerToRender) :
             
@@ -105,7 +91,7 @@ class Map() :
 
     def update(self) :
 
-        pass        
+        pass
 
     def render(self) :
     

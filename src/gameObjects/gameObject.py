@@ -1,7 +1,5 @@
 import shared
 
-print shared.tileset
-
 
 class GameObject() :
 
