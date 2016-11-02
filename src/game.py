@@ -48,6 +48,8 @@ class Game() :
 
         if (shared.debug) : self.combatManager.render()
 
+        shared.view.renderGlobalMask()
+
         # Update screen
         pygame.display.update()
         self.fpsClock.tick(self.fps)

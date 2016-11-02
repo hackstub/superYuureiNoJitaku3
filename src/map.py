@@ -36,6 +36,11 @@ class Map() :
                 layerData = self.makeVisionLayer(layer["objects"])
 
             self.layer[layerName] = layerData
+        
+        shared.view.setGlobalMask(self.pixelSize(), [self.layer["vision"]["spawn"]])
+
+    def pixelSize(self) :
+        return (self.width * shared.tileSize, self.height * shared.tileSize)
 
     def makeObjectLayer(self, data) :
 
@@ -62,9 +67,6 @@ class Map() :
 
         return objectLayer
 
-    def pixelSize(self) :
-        return (self.width * shared.tileSize, self.height * shared.tileSize)
-
     def makeVisionLayer(self, data) :
        
         visionLayer = { }
@@ -73,30 +75,15 @@ class Map() :
 
             if (obj["type"] != "FieldOfVision") : continue
             
-            baseX, baseY = obj["x"], obj["y"]
+            vertices = [ (pos["x"], pos["y"]) for pos in obj["polyline"] ]
+            
+            offset_x, offset_y, masksurf = shared.view.makeMaskFromPolygon(vertices)
 
-            vertices = []
-            for pos in obj["polyline"] :
-                #vertex = (baseX+pos["x"], baseY+pos["y"])
-                vertex = (pos["x"], pos["y"])
-                vertices.append(vertex)
-
-            masksurf = shared.makeMaskFromPolygon(vertices)
-            masksurf = (baseX-masksurf[0][0], baseY-masksurf[0][1], masksurf[1])
-
-            visionLayer[obj["name"]] = {"vertices" : vertices, "x" : baseX, "y" : baseY, "masksurf" : masksurf }
-
-        maskList = [ mask["masksurf"] for mask in visionLayer.values() ]
-
-        self.globalMask = shared.makeMask(self.pixelSize(), maskList)
-
+            visionLayer[obj["name"]] = { "x"    : obj["x"] - offset_x,
+                                         "y"    : obj["y"] - offset_y,
+                                         "surf" : masksurf }
+        
         return visionLayer
-
-    def renderVision(self) :
-
-        shared.view.blitSurf(self.globalMask, (0,0))
-
-
 
     def renderLayer(self, layerName) :
 
@@ -125,7 +112,6 @@ class Map() :
         self.renderLayer("ground")
         self.renderLayer("mid")
         self.renderLayer("objects")
-        self.renderVision()
 
     def isWalkable(self, pos) :
 

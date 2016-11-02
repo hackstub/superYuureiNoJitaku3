@@ -8,9 +8,17 @@ class Hero() :
 
     def __init__(self, spritePath) :
 
-        self.x = 10 * shared.tileSize
-        self.y = 10 * shared.tileSize
-       
+
+
+        # Position hero on hero spawn
+
+        for obj in shared.map.layer["objects"] :
+            if (obj == -1) : continue
+            if (obj.__class__.__name__ != "SpawnHero") : continue
+            self.x = obj.x
+            self.y = obj.y
+            break
+
         self.loadSprites(spritePath)
        
         self.orientation       = "front"
