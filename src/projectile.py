@@ -16,7 +16,7 @@ class Projectile() :
         self.timer             = timer
         self.currentSpriteStep = 0
 
-        self.loadSprites("assets/arrow.png")
+        self.loadSprites("assets/sprites/arrow.png")
         self.updateCurrentSprite()
 
     def loadSprites(self, path) :
@@ -52,6 +52,9 @@ class Projectile() :
         
         self.updateCurrentSprite()
 
+    def mask(self) :
+
+        return pygame.mask.from_surface(self.currentSprite)
 
     def update(self) :
  

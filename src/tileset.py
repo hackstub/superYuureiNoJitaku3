@@ -9,47 +9,38 @@ from PIL import Image
 class Tileset() :
 
 
-    def __init__(self, tilesetImagePath, tilesetMaskPath) :
+    def __init__(self, tilesetFolder) :
 
-        self.loadTilesetImage(tilesetImagePath)
-        self.loadTilesetMask (tilesetMaskPath )
+        self.loadTiles          (tilesetFolder+"/tiles.png")
+        self.loadWalkabilityMask(tilesetFolder+"/walkability.png")
     
-    def loadTilesetImage(self, path) :
+    def loadTiles(self, path) :
 
         tilesetImage = pygame.image.load(path)
-        self.tilesetWidth, self.tilesetHeight = tilesetImage.get_size()
+        w, h = tilesetImage.get_size()
         
         self.tiles = []
 
-        for tileY in range(0, self.tilesetHeight / shared.tileSize):
-            for tileX in range(0, self.tilesetWidth / shared.tileSize):
+        for tileY in range(0, h / shared.tileSize):
+            for tileX in range(0, w / shared.tileSize):
 
                 tile = (tileX * shared.tileSize, tileY * shared.tileSize, 
                                 shared.tileSize,         shared.tileSize)
                 
                 self.tiles.append(tilesetImage.subsurface(tile))
 
-    def loadTilesetMask(self, path) :
+    def loadWalkabilityMask(self, path) :
 
-        im = Image.open(path)
-        pix = im.load()
-        
-        self.mask = [ ]
+        maskImage = pygame.image.load(path)
+        w, h = maskImage.get_size()
 
-        for y in range(0, self.tilesetHeight / shared.tileSize) :
-        
-            row = []
-    
-            for x in range(0, self.tilesetWidth / shared.tileSize) :
+        self.walkabilityMask = [ ]
 
-                (r, g, b, a) = pix[ (x+0.5)*shared.tileSize, (y+0.5)*shared.tileSize]
+        for tileY in range(0, h / shared.tileSize):
+            for tileX in range(0, w / shared.tileSize):
 
-                # Transparent = walkable
-                if   (a == 0) : row.append(0)
-                # Black = block
-                elif (r == 0) : row.append(1)
-                # Else / white = walkable by behind
-                else          : row.append(2)
-
-            self.mask.extend(row)
+                tile = (tileX * shared.tileSize, tileY * shared.tileSize, 
+                                shared.tileSize,         shared.tileSize)
+                
+                self.walkabilityMask.append(pygame.mask.from_surface(maskImage.subsurface(tile)))
 

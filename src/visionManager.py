@@ -13,19 +13,19 @@ class VisionManager() :
         self.zones = {}
         self.activeZones = []
     
-        self.globalMask = None
+        self.globalOverlay = None
 
     def addZone(self, zone) :
 
         vertices = [ (pos["x"], pos["y"]) for pos in zone["polyline"] ]
         
-        offset_x, offset_y, mask = self.makeZoneMask(vertices)
+        offset_x, offset_y, overlay = self.makeZoneOverlay(vertices)
         corner_x, corner_y = zone["x"] - offset_x, zone["y"] - offset_y
 
         self.zones[zone["name"]] = { "corner"   : (corner_x, corner_y),
-                                     "mask"     : mask }
+                                     "overlay"  : overlay }
     
-    def makeZoneMask(self, vertices) :
+    def makeZoneOverlay(self, vertices) :
         
         blurRadius = 20
         initsize = 2000
@@ -65,28 +65,6 @@ class VisionManager() :
 
         return (offset_x, offset_y, surf)
         
-    def heroInZone(self, zone) :
- 
-        heroX, heroY = shared.hero.position()
-
-        heroX = int(heroX)
-        heroY = int(heroY)
-
-        w, h = zone["mask"].get_size()
-        cornerX, cornerY = zone["corner"]
-        xOnSurf = heroX - cornerX
-        yOnSurf = heroY - cornerY
-
-        if (xOnSurf < 0) or (yOnSurf < 0) or (xOnSurf > w) or (yOnSurf > h) :
-            return False
-
-        pix = zone["mask"].get_at((xOnSurf, yOnSurf))
-
-        if (pix[0] > 127) :
-            return True
-
-        return False
-
     def update(self) :
 
         previousActiveZones = list(self.activeZones)
@@ -100,40 +78,57 @@ class VisionManager() :
                 self.activeZones.remove(zoneName)
 
         if (previousActiveZones != self.activeZones) :
-            self.remakeMask()
+            self.remakeGlobalOverlay()
+
+    def heroInZone(self, zone) :
+ 
+        heroX, heroY = shared.hero.position()
+
+        heroX = int(heroX)
+        heroY = int(heroY)
+
+        w, h = zone["overlay"].get_size()
+        cornerX, cornerY = zone["corner"]
+        xOnSurf = heroX - cornerX
+        yOnSurf = heroY - cornerY
+
+        if (xOnSurf < 0) or (yOnSurf < 0) or (xOnSurf > w) or (yOnSurf > h) :
+            return False
+
+        pix = zone["overlay"].get_at((xOnSurf, yOnSurf))
+
+        if (pix[0] > 127) :
+            return True
+
+        return False
 
     def render(self) :
 
-        if (self.globalMask != None) :
-            shared.view.blitRaw(self.globalMask, (0,0))
+        if (self.globalOverlay != None) :
+            shared.view.blitRaw(self.globalOverlay, (0,0))
 
-    def remakeMask(self) :
+    def remakeGlobalOverlay(self) :
         
         # Prepare base surface
 
         globalW, globalH = shared.map.pixelSize()
-        globalMask = pygame.Surface((globalW, globalH), flags=pygame.SRCALPHA)
+        globalOverlay = pygame.Surface((globalW, globalH), flags=pygame.SRCALPHA)
         
         if (shared.debug) :
-            globalMask.fill((30,30,30,230))
+            globalOverlay.fill((30,30,30,230))
         else :
-            globalMask.fill((30,30,30,255))
+            globalOverlay.fill((30,30,30,255))
 
         # Draw all the active zone
 
         for zoneName in self.activeZones :
 
             x, y = self.zones[zoneName]["corner"]
-            w, h = self.zones[zoneName]["mask"].get_size()
+            w, h = self.zones[zoneName]["overlay"].get_size()
 
-            globalMask.blit(self.zones[zoneName]["mask"], (x,y), special_flags=pygame.BLEND_RGBA_MIN)
-
-
-        self.globalMask = globalMask
-
-        return
+            globalOverlay.blit(self.zones[zoneName]["overlay"], (x,y), special_flags=pygame.BLEND_RGBA_MIN)
 
 
-
+        self.globalOverlay = globalOverlay
 
 

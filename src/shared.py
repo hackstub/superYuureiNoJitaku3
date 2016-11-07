@@ -47,7 +47,7 @@ def strToObjectClass(className):
 
 def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 
-    if not (map.isWalkable(pos)) : 
+    if not (map.isWalkable(source.mask(), pos)) : 
         return False
 
     if ((source != hero) 

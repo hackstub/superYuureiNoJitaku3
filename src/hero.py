@@ -107,6 +107,11 @@ class Hero() :
 
         self.spriteUpdate()
 
+
+    def mask(self) :
+
+        return pygame.mask.from_surface(self.currentSprite)
+
     def meleeAttackKeyHandler(self) :
 
         if (self.busy) :

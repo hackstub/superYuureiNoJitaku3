@@ -11,7 +11,8 @@ class Map() :
 
     def __init__(self,mapJsonPath) :
 
-        self.layers   = self.load(mapJsonPath)
+        self.load(mapJsonPath)
+        self.makeWalkabilityMask()
 
 
     def load(self, mapJsonPath) :
@@ -71,6 +72,7 @@ class Map() :
 
             if (obj["type"] != "FieldOfVision") : continue
            
+            print "Loading field of vision for "+obj["name"]
             shared.visionManager.addZone(obj)
             
     def renderLayer(self, layerName) :
@@ -90,7 +92,7 @@ class Map() :
                 tile.render()
 
     def update(self) :
-
+    
         pass
 
     def render(self) :
@@ -99,31 +101,41 @@ class Map() :
         self.renderLayer("mid")
         self.renderLayer("objects")
 
-    def isWalkable(self, pos) :
+    def makeWalkabilityMask(self) :
+
+        mask = pygame.mask.Mask(self.pixelSize())
+
+        for layerName in [ "ground", "mid"] :
+            for (i, tile) in enumerate(self.layer[layerName]) :
+                
+                if (tile == -1) : continue
+
+                xPix = int((i % self.width) + 0.5) * shared.tileSize
+                yPix = int((i / self.width) + 0.5) * shared.tileSize
+
+                mask.draw(shared.tileset.walkabilityMask[tile], (xPix,yPix))
+
+        self.walkabilityMask = mask
+
+    def isWalkable(self, mask, pos) :
 
         x_, y_ = pos
-
+        x_ = int(round(x_))
+        y_ = int(round(y_))
+        
         if (x_ < 0) or (x_ >= self.width * shared.tileSize) \
         or (y_ < 0) or (y_ >= self.height * shared.tileSize) :
             return False
-       
-        neighbours = [ (1,1), (1,-1), (-1,1), (-1,-1) ]
-
-        for dx, dy in neighbours :
-
-            x = int(float(x_ + 0.3 * dx * shared.tileSize) / shared.tileSize)
-            y = int(float(y_ + 0.3 * dy * shared.tileSize) / shared.tileSize)
-            if (x < 0) or (x >= self.width) or (y < 0) or (y >= self.height) :
-                return False
-
-            i = x + y * self.width
-            tileIdGround = self.layer["ground"][i]
-            tileIdMid    = self.layer["mid"][i]
-
-            if (shared.tileset.mask[tileIdGround] != 0) : return False
-            if (shared.tileset.mask[tileIdMid]    != 0) : return False
         
-        return True
+        mask_w, mask_h = mask.get_size()
+        offset = (x_ - mask_w/2, y_ - mask_h/2)
+
+        if (self.walkabilityMask.overlap(mask, offset)) :
+            return False
+        else : 
+            return True
+      
+
 
 
 

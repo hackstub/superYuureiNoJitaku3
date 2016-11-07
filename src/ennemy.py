@@ -9,7 +9,7 @@ class Ennemy() :
     def __init__(self, pos) :
 
         self.x, self.y = pos
-        self.loadSprites("assets/ennemy.png")
+        self.loadSprites("assets/sprites/ennemy.png")
         self.orientation       = "front"
         self.currentSpriteStep = 0
         
@@ -109,6 +109,10 @@ class Ennemy() :
 
         return [ shared.Damage(source=self, position=self.position(),
             radius=shared.tileSize*1.05, value=1) ]
+
+    def mask(self) :
+
+        return pygame.mask.from_surface(self.currentSprite)
 
     def receiveDamage(self, damage) :
 
