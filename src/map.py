@@ -72,7 +72,7 @@ class Map() :
 
             if (obj["type"] != "FieldOfVision") : continue
            
-            print "Loading field of vision for "+obj["name"]
+            #print "Loading field of vision for "+obj["name"]
             shared.visionManager.addZone(obj)
             
     def renderLayer(self, layerName) :
@@ -93,7 +93,8 @@ class Map() :
 
     def update(self) :
     
-        pass
+        for obj in self.layer["objects"] :
+           if (type(obj) != int) : obj.update()
 
     def render(self) :
     

@@ -12,7 +12,14 @@ class GameObject() :
         self.visible    = True
         self.tileId     = tileInfo[0]
         self.tile       = tileInfo[1]
-        self.properties = properties
+        
+        if (properties == None) : self.properties = {}
+        else                    : self.properties = properties
+
+
+    def position(self) :
+
+        return (self.x, self.y)
 
     def render(self) :
 
@@ -22,7 +29,11 @@ class GameObject() :
         elif (shared.debug) and (self.active) and (not self.visible) :
             shared.view.blit(self.tile, (self.x, self.y), debug=True)
 
-    def trigger(self) :
+    def update(self) :
+
+        pass
+
+    def trigger(self, source) :
 
         print "Object "+name+" got triggered !"
 

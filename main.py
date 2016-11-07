@@ -1,6 +1,6 @@
 
 import shared as s
-import tileset, map, view, game, hero, ennemy, combatManager, visionManager
+import tileset, map, view, game, hero, combatManager, visionManager
 import pygame
 from pygame.locals import *
 
@@ -19,10 +19,6 @@ def main() :
 
     s.map           = map.Map("assets/map/map.json")
     s.hero          = hero.Hero("assets/sprites/hero.png")
-    
-    s.ennemies.add(ennemy.Ennemy((40,40)))
-    s.ennemies.add(ennemy.Ennemy((100,30)))
-    
     
     g               = game.Game()
         

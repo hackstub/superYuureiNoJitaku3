@@ -31,6 +31,7 @@ class Game() :
         for ennemy     in list(shared.ennemies)    : ennemy.update()
         for projectile in list(shared.projectiles) : projectile.update()
         
+        shared.map.update()
         shared.combatManager.update()
         shared.visionManager.update()
         

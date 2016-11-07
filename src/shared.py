@@ -12,7 +12,7 @@ heroWalkingSpriteTempo = 4
 heroWalkingSpeed       = tileSize / 8
 heroAttackSpriteTempo  = 2
 
-ennemyWalkingSpeed     = tileSize / 32
+ennemyWalkingSpeed     = 1
 ennemyKnockBack        = tileSize / 3
 
 #debug = False
