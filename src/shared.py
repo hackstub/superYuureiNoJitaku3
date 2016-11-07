@@ -59,6 +59,7 @@ def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
         for ennemy in ennemies :
             if  ((source != ennemy)
             and  (ennemy not in ignoreList)
+            and  (ennemy.alive)
             and  (distance(ennemy.position(), pos) < tileSize)) : 
                 return False
 

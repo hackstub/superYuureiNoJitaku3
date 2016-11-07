@@ -15,8 +15,10 @@ class CombatManager() :
         gameObjects = Set() # TODO
 
         gameObjects.add(shared.hero)
-        gameObjects = gameObjects.union(shared.ennemies)
         gameObjects = gameObjects.union(shared.projectiles)
+        for ennemy in shared.ennemies :
+            if (not ennemy.alive) : continue
+            gameObjects.add(ennemy)
 
         self.damageList = [ ]
 

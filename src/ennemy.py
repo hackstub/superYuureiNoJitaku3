@@ -13,12 +13,15 @@ class Ennemy() :
         self.orientation       = "front"
         self.currentSpriteStep = 0
         
-        self.updateCurrentSprite()
-
         self.immunityCooldown = -1
         self.knockBack = None
         
         self.damageTexts = []
+
+        self.alive = True
+        self.hp = 200
+        
+        self.updateCurrentSprite()
 
     def loadSprites(self, path) :
 
@@ -37,6 +40,8 @@ class Ennemy() :
         self.sprites["back"] .append(self.getSprite(spritesImage, 2, 1))
         self.sprites["right"].append(self.getSprite(spritesImage, 3, 0))
         self.sprites["right"].append(self.getSprite(spritesImage, 3, 1))
+        
+        self.sprites["dead"] = self.getSprite(spritesImage, 4, 0)
  
     def getSprite(self, spritesImage, x, y, s = 1) :
 
@@ -74,6 +79,16 @@ class Ennemy() :
         if (self.immunityCooldown >= 0) :
             self.immunityCooldown -= 1
 
+        # Death management
+       
+        if (not self.alive) :
+            self.deadCooldown -= 1
+            self.updateCurrentSprite()
+
+            if (self.deadCooldown <= 0) :
+                self.destroy()
+            return
+        
         # Knockback
 
         if (self.knockBack != None) :
@@ -100,7 +115,12 @@ class Ennemy() :
 
     def updateCurrentSprite(self) :
 
-        self.currentSprite = self.sprites[self.orientation][self.currentSpriteStep]
+        if (self.alive) :
+            self.currentSprite = self.sprites[self.orientation][self.currentSpriteStep]
+        else :
+            self.currentSprite = self.sprites["dead"].copy()
+            self.currentSprite.fill((255,255,255,self.deadCooldown * 255 / 20), special_flags = pygame.BLEND_RGBA_MIN)
+
 
     def position(self) :
         return (self.x, self.y)
@@ -114,15 +134,32 @@ class Ennemy() :
 
         return pygame.mask.from_surface(self.currentSprite)
 
+    def destroy(self) :
+
+        try : 
+            shared.ennemies.remove(self)
+            del self
+        except :
+            print "DELETING ENNEMY FAILED, LOL !"
+     
+
     def receiveDamage(self, damage) :
 
+        if not (self.alive) :
+            return 
+        
+        if (self.immunityCooldown >= 0) :
+            return
+        
         damageSourceClass = damage.source.__class__.__name__
 
         if (damageSourceClass == self.__class__.__name__) :
             return
 
-        if (self.immunityCooldown >= 0) :
-            return
+        self.hp -= damage.value
+        if (self.hp <= 0) :
+            self.alive = False
+            self.deadCooldown = 20
 
         Dx = damage.source.x - self.x
         Dy = damage.source.y - self.y
