@@ -65,6 +65,18 @@ def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 
     return True
 
+def objectsInTriggerGroup(groupId) :
+
+    L = []
+
+    for obj in map.layer["objects"] :
+        if (type(obj) == int) : continue
+        if ("triggerGroup" not in obj.properties) : continue
+        if (obj.properties["triggerGroup"] != groupId) : continue
+
+        L.append(obj)
+
+    return L
 
 class Damage() :
 

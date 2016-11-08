@@ -1,3 +1,4 @@
+import shared
 from gameObject import GameObject
 
 class Challenge(GameObject) :
@@ -7,5 +8,45 @@ class Challenge(GameObject) :
 
         GameObject.__init__(self, name, x, y, tileInfo, properties)
 
+        if ("id" not in self.properties) : 
+            print "Warning ! Property id is not set for object "+self.name
+            self.properties["id"] = -1
+
+        if ("triggerInitId" not in self.properties) : 
+            print "Warning ! Property triggerInitId is not set for object "+self.name
+            self.properties["triggerInitId"] = -1
+
+        if ("triggerCompletionId" not in self.properties) : 
+            print "Warning ! Property triggerCompletionId is not set for object "+self.name
+            self.properties["triggerCompletionId"] = -1
+
         self.visible = False
+        self.ongoing = False
+
+    def update(self) :
+
+        if not self.active : 
+            return
+
+        if (self.ongoing) :
+
+            id_ = self.properties["triggerInitId"] 
+            
+            for obj in shared.objectsInTriggerGroup(id_) :
+                if (not obj.isCompleted()) : return
+
+            for obj in shared.objectsInTriggerGroup(self.properties["triggerCompletionId"] ) :
+                obj.trigger(self)
+
+            self.active = False
+
+            return
+
+        if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/2) :
+            
+            self.ongoing = True
+            
+            for obj in shared.objectsInTriggerGroup(self.properties["triggerInitId"] ) :
+                obj.trigger(self)
+
 

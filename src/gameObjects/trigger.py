@@ -25,13 +25,6 @@ class Trigger(GameObject) :
             
             self.active = False
             
-            id_ = self.properties["id"] 
-            if (id_ == -1) : return
-
-            for obj in shared.map.layer["objects"] :
-                if (type(obj) == int) : continue
-                if ("triggerId" not in obj.properties) : continue
-                if (obj.properties["triggerId"] != id_) : continue
-            
+            for obj in shared.objectsInTriggerGroup(self.properties["id"] ) :
                 obj.trigger(self)
 

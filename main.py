@@ -12,7 +12,7 @@ def main() :
 
     s.tileset       = tileset.Tileset("assets/tileset/");
     
-    s.view          = view.View("Test", (20,20))
+    s.view          = view.View("Test", (15,15))
     
     s.combatManager = combatManager.CombatManager()
     s.visionManager = visionManager.VisionManager()

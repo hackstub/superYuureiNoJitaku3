@@ -112,9 +112,10 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object id="12" name="s1_trigger1" type="Trigger" gid="62" x="160" y="288" width="32" height="32">
+  <object id="12" name="s1_challenge1" type="Challenge" gid="62" x="160" y="288" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="1"/>
+    <property name="triggerCompletionId" type="int" value="2"/>
+    <property name="triggerInitId" type="int" value="1"/>
    </properties>
   </object>
   <object id="13" name="s2_trigger1" type="Trigger" gid="62" x="512" y="384" width="32" height="32" rotation="90"/>
@@ -124,31 +125,31 @@
   <object id="18" name="s1_spawn1" type="SpawnMonster" gid="63" x="128" y="352" width="32" height="32">
    <properties>
     <property name="monsterType" value="ghost"/>
-    <property name="triggerId" type="int" value="1"/>
+    <property name="triggerGroup" type="int" value="1"/>
    </properties>
   </object>
   <object id="19" name="s1_spawn2" type="SpawnMonster" gid="63" x="128" y="480" width="32" height="32">
    <properties>
     <property name="monsterType" value="ghost"/>
-    <property name="triggerId" type="int" value="1"/>
+    <property name="triggerGroup" type="int" value="1"/>
    </properties>
   </object>
   <object id="20" name="s1_spawn3" type="SpawnMonster" gid="63" x="352" y="320" width="32" height="32">
    <properties>
     <property name="monsterType" value="ghost"/>
-    <property name="triggerId" type="int" value="1"/>
+    <property name="triggerGroup" type="int" value="1"/>
    </properties>
   </object>
   <object id="21" name="s1_spawn4" type="SpawnMonster" gid="63" x="352" y="416" width="32" height="32">
    <properties>
     <property name="monsterType" value="ghost"/>
-    <property name="triggerId" type="int" value="1"/>
+    <property name="triggerGroup" type="int" value="1"/>
    </properties>
   </object>
   <object id="22" name="s1_spawn5" type="SpawnMonster" gid="63" x="352" y="512" width="32" height="32">
    <properties>
     <property name="monsterType" value="ghost"/>
-    <property name="triggerId" type="int" value="1"/>
+    <property name="triggerGroup" type="int" value="1"/>
    </properties>
   </object>
   <object id="25" name="s2_spawn2" type="SpawnMonster" gid="63" x="736" y="416" width="32" height="32"/>
@@ -161,13 +162,22 @@
   <object id="40" name="sb_spawn1" type="SpawnMonster" gid="63" x="736" y="1312" width="32" height="32"/>
   <object id="41" name="teleportIn" type="TeleportIn" gid="26" x="736" y="1248" width="32" height="32"/>
   <object id="43" name="spawnHero" type="SpawnHero" gid="82" x="160" y="128" width="32" height="32"/>
-  <object id="65" name="s1_door1" type="Door" gid="6" x="160" y="256" width="32" height="32"/>
+  <object id="65" name="s1_door1" type="Door" gid="6" x="160" y="256" width="32" height="32">
+   <properties>
+    <property name="state" type="bool" value="true"/>
+    <property name="triggerGroup" type="int" value="1"/>
+   </properties>
+  </object>
   <object id="66" name="s2_door2" type="Door" gid="6" x="576" y="288" width="32" height="32"/>
   <object id="67" name="s2_door4" type="Door" gid="6" x="576" y="544" width="32" height="32"/>
   <object id="68" name="s3_door1" type="Door" gid="6" x="576" y="608" width="32" height="32"/>
   <object id="69" name="s4_door1" type="Door" gid="6" x="736" y="960" width="32" height="32"/>
   <object id="70" name="s3_door2" type="Door" gid="6" x="736" y="896" width="32" height="32"/>
-  <object id="71" name="s1_door2" type="Door" gid="5" x="416" y="416" width="32" height="32"/>
+  <object id="71" name="s1_door2" type="Door" gid="5" x="416" y="416" width="32" height="32">
+   <properties>
+    <property name="triggerGroup" type="int" value="2"/>
+   </properties>
+  </object>
   <object id="72" name="s2_door1" type="Door" gid="5" x="480" y="416" width="32" height="32"/>
   <object id="73" name="s2_door3" type="Door" gid="5" x="672" y="416" width="32" height="32"/>
  </objectgroup>

@@ -31,17 +31,19 @@
                  "gid":62,
                  "height":32,
                  "id":12,
-                 "name":"s1_trigger1",
+                 "name":"s1_challenge1",
                  "properties":
                     {
-                     "id":1
+                     "triggerCompletionId":2,
+                     "triggerInitId":1
                     },
                  "propertytypes":
                     {
-                     "id":"int"
+                     "triggerCompletionId":"int",
+                     "triggerInitId":"int"
                     },
                  "rotation":0,
-                 "type":"Trigger",
+                 "type":"Challenge",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -103,12 +105,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerId":1
+                     "triggerGroup":1
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerId":"int"
+                     "triggerGroup":"int"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -125,12 +127,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerId":1
+                     "triggerGroup":1
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerId":"int"
+                     "triggerGroup":"int"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -147,12 +149,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerId":1
+                     "triggerGroup":1
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerId":"int"
+                     "triggerGroup":"int"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -169,12 +171,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerId":1
+                     "triggerGroup":1
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerId":"int"
+                     "triggerGroup":"int"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -191,12 +193,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerId":1
+                     "triggerGroup":1
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerId":"int"
+                     "triggerGroup":"int"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -330,6 +332,16 @@
                  "height":32,
                  "id":65,
                  "name":"s1_door1",
+                 "properties":
+                    {
+                     "state":true,
+                     "triggerGroup":1
+                    },
+                 "propertytypes":
+                    {
+                     "state":"bool",
+                     "triggerGroup":"int"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -402,6 +414,14 @@
                  "height":32,
                  "id":71,
                  "name":"s1_door2",
+                 "properties":
+                    {
+                     "triggerGroup":2
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroup":"int"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
