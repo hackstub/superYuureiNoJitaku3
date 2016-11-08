@@ -25,6 +25,6 @@ class Trigger(GameObject) :
             
             self.active = False
             
-            for obj in shared.objectsInTriggerGroup(self.properties["id"] ) :
+            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["id"]) :
                 obj.trigger(self)
 

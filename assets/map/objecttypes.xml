@@ -24,11 +24,9 @@
   <property name="state" type="bool" default="false"/>
  </objecttype>
  <objecttype name="TeleportIn" color="#a0a0a4">
-  <property name="idOut" type="int" default="-1"/>
+  <property name="nameOut" type="string" default=""/>
  </objecttype>
- <objecttype name="TeleportOut" color="#a0a0a4">
-  <property name="id" type="int" default="-1"/>
- </objecttype>
+ <objecttype name="TeleportOut" color="#a0a0a4"/>
  <objecttype name="Challenge" color="#ff0095">
   <property name="triggerCompletionId" type="int" default="-1"/>
   <property name="triggerInitId" type="int" default="-1"/>

@@ -27,7 +27,7 @@ class VisionManager() :
     
     def makeZoneOverlay(self, vertices) :
         
-        blurRadius = 20
+        blurRadius = 0
         initsize = 2000
         margin = 150
 

@@ -15,8 +15,8 @@ heroAttackSpriteTempo  = 2
 ennemyWalkingSpeed     = 1
 ennemyKnockBack        = tileSize / 3
 
-#debug = False
-debug = True
+debug = False
+#debug = True
 
 def distance(pos1, pos2) :
     
@@ -65,18 +65,32 @@ def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 
     return True
 
-def objectsInTriggerGroup(groupId) :
+def searchObjectsByProperty(property,value) :
 
     L = []
 
     for obj in map.layer["objects"] :
         if (type(obj) == int) : continue
-        if ("triggerGroup" not in obj.properties) : continue
-        if (obj.properties["triggerGroup"] != groupId) : continue
+        if (property not in obj.properties) : continue
+        if (obj.properties[property] != value) : continue
 
         L.append(obj)
 
     return L
+
+def searchObjectsByName(name) :
+
+    L = []
+
+    for obj in map.layer["objects"] :
+        if (type(obj) == int) : continue
+        if (obj.name != name) : continue
+
+        L.append(obj)
+
+    return L
+
+
 
 class Damage() :
 
