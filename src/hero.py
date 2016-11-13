@@ -158,7 +158,7 @@ class Hero() :
         if (self.immunityCooldown >= 0) :
             return
 
-        print "Hero took "+str(damage.value)+" damages !"
+        print("Hero took "+str(damage.value)+" damages !")
         self.immunityCooldown = 10
 
 

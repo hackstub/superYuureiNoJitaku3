@@ -1,7 +1,6 @@
 import pygame
 import pygame.locals
 import shared
-from sets import Set
 
 class CombatManager() :
 
@@ -12,7 +11,7 @@ class CombatManager() :
 
     def update(self) :
 
-        gameObjects = Set() # TODO
+        gameObjects = set() # TODO
 
         gameObjects.add(shared.hero)
         gameObjects = gameObjects.union(shared.projectiles)
