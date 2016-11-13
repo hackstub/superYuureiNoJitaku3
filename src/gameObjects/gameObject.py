@@ -35,7 +35,7 @@ class GameObject() :
 
     def trigger(self, source) :
 
-        print "Object "+self.name+" got triggered !"
+        print("Object "+self.name+" got triggered !")
     
     def isCompleted(self) :
 

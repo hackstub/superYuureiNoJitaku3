@@ -11,7 +11,7 @@ class CombatManager() :
 
     def update(self) :
 
-        gameObjects = set() # TODO
+        gameObjects = set()
 
         gameObjects.add(shared.hero)
         gameObjects = gameObjects.union(shared.projectiles)

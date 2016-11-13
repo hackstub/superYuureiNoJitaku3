@@ -1,5 +1,5 @@
 import shared
-from gameObject import GameObject
+from gameObjects.gameObject import GameObject
 
 class Door(GameObject) :
 
@@ -9,11 +9,11 @@ class Door(GameObject) :
         GameObject.__init__(self, name, x, y, tileInfo, properties)
 
         if ("triggerGroup" not in self.properties) : 
-            print "Warning ! Property triggerGroup is not set for object "+self.name
+            print("Warning ! Property triggerGroup is not set for object "+self.name)
             self.properties["triggerGroup"] = -1
 
         if ("state" not in self.properties) : 
-            print "Warning ! Property state is not set for object "+self.name
+            print("Warning ! Property state is not set for object "+self.name)
             self.properties["state"] = False
 
     def render(self) :

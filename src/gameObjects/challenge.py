@@ -1,5 +1,5 @@
 import shared
-from gameObject import GameObject
+from gameObjects.gameObject import GameObject
 
 class Challenge(GameObject) :
 
@@ -9,15 +9,15 @@ class Challenge(GameObject) :
         GameObject.__init__(self, name, x, y, tileInfo, properties)
 
         if ("id" not in self.properties) : 
-            print "Warning ! Property id is not set for object "+self.name
+            print("Warning ! Property id is not set for object "+self.name)
             self.properties["id"] = -1
 
         if ("triggerInitId" not in self.properties) : 
-            print "Warning ! Property triggerInitId is not set for object "+self.name
+            print("Warning ! Property triggerInitId is not set for object "+self.name)
             self.properties["triggerInitId"] = -1
 
         if ("triggerCompletionId" not in self.properties) : 
-            print "Warning ! Property triggerCompletionId is not set for object "+self.name
+            print("Warning ! Property triggerCompletionId is not set for object "+self.name)
             self.properties["triggerCompletionId"] = -1
 
         self.visible = False

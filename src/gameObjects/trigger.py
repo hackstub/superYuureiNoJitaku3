@@ -1,5 +1,5 @@
 import shared
-from gameObject import GameObject
+from gameObjects.gameObject import GameObject
 
 
 class Trigger(GameObject) :
@@ -10,7 +10,7 @@ class Trigger(GameObject) :
         GameObject.__init__(self, name, x, y, tileInfo, properties)
 
         if ("id" not in self.properties) : 
-            print "Warning ! Property id is not set for object "+self.name
+            print("Warning ! Property id is not set for object "+self.name)
             self.properties["id"] = -1
 
         self.visible = False

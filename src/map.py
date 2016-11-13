@@ -50,8 +50,8 @@ class Map() :
 
         for obj in data :
 
-            x = int(obj["x"]) / int(obj["width"])
-            y = int(obj["y"]) / int(obj["width"]) - 1
+            x = int(int(obj["x"]) / int(obj["width"]))
+            y = int(int(obj["y"]) / int(obj["width"])) - 1
 
             tileId     = obj["gid"]
             objType    = obj["type"]
@@ -83,8 +83,8 @@ class Map() :
             
             if (tile == -1) : continue
 
-            xPix = ((i % self.width) + 0.5) * shared.tileSize
-            yPix = ((i / self.width) + 0.5) * shared.tileSize
+            xPix = (int(i % self.width) + 0.5) * shared.tileSize
+            yPix = (int(i / self.width) + 0.5) * shared.tileSize
 
             if (type(tile) == int) :
                 shared.view.blit(shared.tileset.tiles[tile], (xPix,yPix))
@@ -129,7 +129,7 @@ class Map() :
             return False
         
         mask_w, mask_h = mask.get_size()
-        offset = (x_ - mask_w/2, y_ - mask_h/2)
+        offset = (x_ - int(mask_w/2), y_ - int(mask_h/2))
 
         if (self.walkabilityMask.overlap(mask, offset)) :
             return False
