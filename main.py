@@ -13,7 +13,7 @@ from pygame.locals import *
 
 def main() :
 
-    s.tileset       = tileset.Tileset("assets/tileset/");
+    s.tileset       = tileset.Tileset("assets/tileset_nice/");
 
     s.view          = view.View("Test", (15,15))
 
@@ -21,7 +21,7 @@ def main() :
     s.visionManager = visionManager.VisionManager()
 
     s.map           = map.Map("assets/map/map.json")
-    s.hero          = hero.Hero("assets/sprites/hero.png")
+    s.hero          = hero.Hero("assets/sprites_nice/hero.png")
 
     g               = game.Game()
 

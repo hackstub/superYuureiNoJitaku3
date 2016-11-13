@@ -9,7 +9,7 @@ class Ennemy() :
     def __init__(self, pos) :
 
         self.x, self.y = pos
-        self.loadSprites("assets/sprites/ennemy.png")
+        self.loadSprites("assets/sprites_nice/ennemy.png")
         self.orientation       = "front"
         self.currentSpriteStep = 0
         
