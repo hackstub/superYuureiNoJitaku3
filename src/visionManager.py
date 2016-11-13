@@ -27,7 +27,7 @@ class VisionManager() :
     
     def makeZoneOverlay(self, vertices) :
         
-        blurRadius = 0
+        blurRadius = 20
         initsize = 2000
         margin = 150
 
@@ -49,8 +49,8 @@ class VisionManager() :
         surf = base.subsurface((rect.x     -     margin , rect.y      -     margin,
                                 rect.width + 2 * margin , rect.height + 2 * margin))
         
-        offset_x = initsize/2-rect.x + margin
-        offset_y = initsize/2-rect.y + margin
+        offset_x = int(initsize/2)-rect.x + margin
+        offset_y = int(initsize/2)-rect.y + margin
 
         # Convert the surface to PIL image
         surfSize = surf.get_size()
@@ -89,8 +89,8 @@ class VisionManager() :
 
         w, h = zone["overlay"].get_size()
         cornerX, cornerY = zone["corner"]
-        xOnSurf = heroX - cornerX
-        yOnSurf = heroY - cornerY
+        xOnSurf = int(heroX) - cornerX
+        yOnSurf = int(heroY) - cornerY
 
         if (xOnSurf < 0) or (yOnSurf < 0) or (xOnSurf > w) or (yOnSurf > h) :
             return False

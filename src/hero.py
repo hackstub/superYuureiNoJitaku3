@@ -15,8 +15,8 @@ class Hero() :
         for obj in shared.map.layer["objects"] :
             if (obj == -1) : continue
             if (obj.__class__.__name__ != "SpawnHero") : continue
-            self.x = obj.x
-            self.y = obj.y
+            self.x = int(obj.x)
+            self.y = int(obj.y)
             break
 
         self.loadSprites(spritePath)
@@ -158,7 +158,7 @@ class Hero() :
         if (self.immunityCooldown >= 0) :
             return
 
-        print "Hero took "+str(damage.value)+" damages !"
+        print("Hero took "+str(damage.value)+" damages !")
         self.immunityCooldown = 10
 
 

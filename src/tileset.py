@@ -1,10 +1,6 @@
-
 import pygame
 import pygame.locals
 import shared
-
-from PIL import Image
-
 
 class Tileset() :
 
@@ -21,8 +17,8 @@ class Tileset() :
         
         self.tiles = []
 
-        for tileY in range(0, h / shared.tileSize):
-            for tileX in range(0, w / shared.tileSize):
+        for tileY in range(0, int(h / shared.tileSize)):
+            for tileX in range(0, int(w / shared.tileSize)):
 
                 tile = (tileX * shared.tileSize, tileY * shared.tileSize, 
                                 shared.tileSize,         shared.tileSize)
@@ -36,8 +32,8 @@ class Tileset() :
 
         self.walkabilityMask = [ ]
 
-        for tileY in range(0, h / shared.tileSize):
-            for tileX in range(0, w / shared.tileSize):
+        for tileY in range(0, int(h / shared.tileSize)):
+            for tileX in range(0, int(w / shared.tileSize)):
 
                 tile = (tileX * shared.tileSize, tileY * shared.tileSize, 
                                 shared.tileSize,         shared.tileSize)

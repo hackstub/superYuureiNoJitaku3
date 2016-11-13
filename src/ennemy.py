@@ -140,7 +140,7 @@ class Ennemy() :
             shared.ennemies.remove(self)
             del self
         except :
-            print "DELETING ENNEMY FAILED, LOL !"
+            print("DELETING ENNEMY FAILED, LOL !")
      
 
     def receiveDamage(self, damage) :

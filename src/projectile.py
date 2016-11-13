@@ -77,7 +77,7 @@ class Projectile() :
             shared.projectiles.remove(self)
             del self
         except :
-            print "DELETING PROJECTILE FAILED, LOL !"
+            print("DELETING PROJECTILE FAILED, LOL !")
                 
 
     def updateCurrentSprite(self) :

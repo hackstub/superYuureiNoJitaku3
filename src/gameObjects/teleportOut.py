@@ -1,4 +1,4 @@
-from gameObject import GameObject
+from gameObjects.gameObject import GameObject
 
 class TeleportOut(GameObject) :
 

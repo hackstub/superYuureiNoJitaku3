@@ -1,5 +1,4 @@
 from math import sqrt
-from sets import Set
 
 import importlib
 import pygame
@@ -9,11 +8,11 @@ from pygame.locals import *
 tileSize               = 32
 
 heroWalkingSpriteTempo = 4
-heroWalkingSpeed       = tileSize / 8
+heroWalkingSpeed       = int(tileSize / 8)
 heroAttackSpriteTempo  = 2
 
 ennemyWalkingSpeed     = 1
-ennemyKnockBack        = tileSize / 3
+ennemyKnockBack        = int(tileSize / 3)
 
 debug = False
 #debug = True
@@ -117,5 +116,5 @@ class Damage() :
 
 
 
-projectiles = Set()
-ennemies = Set()
+projectiles = set()
+ennemies = set()

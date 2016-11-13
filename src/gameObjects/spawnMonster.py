@@ -1,5 +1,5 @@
 import shared
-from gameObject import GameObject
+from gameObjects.gameObject import GameObject
 import ennemy
 
 class SpawnMonster(GameObject) :
@@ -10,11 +10,11 @@ class SpawnMonster(GameObject) :
         GameObject.__init__(self, name, x, y, tileInfo, properties)
 
         if ("triggerGroup" not in self.properties) : 
-            print "Warning ! Property triggerGroup is not set for object "+self.name
+            print("Warning ! Property triggerGroup is not set for object "+self.name)
             self.properties["triggerGroup"] = -1
 
         if ("monsterType" not in self.properties) : 
-            print "Warning ! Property monsterType is not set for object "+self.name
+            print("Warning ! Property monsterType is not set for object "+self.name)
             self.properties["monsterType"] = None
 
         self.visible = False
