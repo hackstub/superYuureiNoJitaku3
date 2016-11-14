@@ -1,0 +1,12 @@
+- Collisions with object layer (i.e. cannot walk on closed doors)
+- Smoother movements at least for monsters (x and y independently from each others)
+- Refactorize sprites loading
+- Lava should not block projectiles
+- (Maybe monsters can be knockbacked on lava, take damage while they're on it?)
+- Implement switches
+- Implement chest
+- Implement keys
+- Several type of ennemies
+- System for hero's life etc
+- Smarter monster IA ?
+- Boss ?
