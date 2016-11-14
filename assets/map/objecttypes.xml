@@ -32,4 +32,5 @@
   <property name="triggerInitId" type="int" default="-1"/>
  </objecttype>
  <objecttype name="FieldOfVision" color="#ed59eb"/>
+ <objecttype name="Light" color="#ffec00"/>
 </objecttypes>
