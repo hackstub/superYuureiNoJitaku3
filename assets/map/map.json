@@ -288,8 +288,8 @@
                  "type":"TeleportOut",
                  "visible":true,
                  "width":32,
-                 "x":800,
-                 "y":1248
+                 "x":704,
+                 "y":1472
                 }, 
                 {
                  "gid":63,

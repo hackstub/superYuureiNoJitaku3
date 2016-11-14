@@ -158,7 +158,7 @@
   <object id="30" name="s2_spawn1" type="SpawnMonster" gid="63" x="576" y="256" width="32" height="32"/>
   <object id="31" name="key1" type="Chest" gid="28" x="640" y="512" width="32" height="32"/>
   <object id="33" name="switch1" type="Switch" gid="47" x="608" y="512" width="32" height="32"/>
-  <object id="36" name="teleportOut1" type="TeleportOut" gid="25" x="800" y="1248" width="32" height="32"/>
+  <object id="36" name="teleportOut1" type="TeleportOut" gid="25" x="704" y="1472" width="32" height="32"/>
   <object id="40" name="sb_spawn1" type="SpawnMonster" gid="63" x="736" y="1312" width="32" height="32"/>
   <object id="41" name="teleportIn1" type="TeleportIn" gid="26" x="736" y="1024" width="32" height="32">
    <properties>

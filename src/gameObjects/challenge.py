@@ -35,7 +35,7 @@ class Challenge(GameObject) :
             for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerInitId"]) :
                 if (not obj.isCompleted()) : return
 
-            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["id"]) :
+            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerCompletionId"]) :
                 obj.trigger(self)
 
             self.active = False
