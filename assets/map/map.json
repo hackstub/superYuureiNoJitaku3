@@ -54,7 +54,15 @@
                  "height":32,
                  "id":13,
                  "name":"s2_trigger1",
-                 "rotation":90,
+                 "properties":
+                    {
+                     "id":3
+                    },
+                 "propertytypes":
+                    {
+                     "id":"int"
+                    },
+                 "rotation":0,
                  "type":"Trigger",
                  "visible":true,
                  "width":32,
@@ -64,32 +72,16 @@
                 {
                  "gid":62,
                  "height":32,
-                 "id":14,
-                 "name":"s2_trigger3",
-                 "rotation":0,
-                 "type":"Trigger",
-                 "visible":true,
-                 "width":32,
-                 "x":704,
-                 "y":416
-                }, 
-                {
-                 "gid":62,
-                 "height":32,
-                 "id":15,
-                 "name":"s3_trigger1",
-                 "rotation":0,
-                 "type":"Trigger",
-                 "visible":true,
-                 "width":32,
-                 "x":576,
-                 "y":640
-                }, 
-                {
-                 "gid":62,
-                 "height":32,
                  "id":16,
                  "name":"s4_trigger1",
+                 "properties":
+                    {
+                     "id":8
+                    },
+                 "propertytypes":
+                    {
+                     "id":"int"
+                    },
                  "rotation":0,
                  "type":"Trigger",
                  "visible":true,
@@ -105,12 +97,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -127,12 +119,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -149,12 +141,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -171,12 +163,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -193,12 +185,12 @@
                  "properties":
                     {
                      "monsterType":"ghost",
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "monsterType":"string",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"SpawnMonster",
@@ -212,6 +204,16 @@
                  "height":32,
                  "id":25,
                  "name":"s2_spawn2",
+                 "properties":
+                    {
+                     "monsterType":"ghost",
+                     "triggerGroups":"4"
+                    },
+                 "propertytypes":
+                    {
+                     "monsterType":"string",
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"SpawnMonster",
                  "visible":true,
@@ -224,6 +226,16 @@
                  "height":32,
                  "id":27,
                  "name":"s3_spawn1",
+                 "properties":
+                    {
+                     "monsterType":"ghost",
+                     "triggerGroups":"6"
+                    },
+                 "propertytypes":
+                    {
+                     "monsterType":"string",
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"SpawnMonster",
                  "visible":true,
@@ -248,6 +260,16 @@
                  "height":32,
                  "id":30,
                  "name":"s2_spawn1",
+                 "properties":
+                    {
+                     "monsterType":"ghost",
+                     "triggerGroups":"3"
+                    },
+                 "propertytypes":
+                    {
+                     "monsterType":"string",
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"SpawnMonster",
                  "visible":true,
@@ -343,12 +365,12 @@
                  "properties":
                     {
                      "state":true,
-                     "triggerGroup":1
+                     "triggerGroups":"1"
                     },
                  "propertytypes":
                     {
                      "state":"bool",
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"Door",
@@ -362,6 +384,14 @@
                  "height":32,
                  "id":66,
                  "name":"s2_door2",
+                 "properties":
+                    {
+                     "triggerGroups":"3"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -374,6 +404,14 @@
                  "height":32,
                  "id":67,
                  "name":"s2_door4",
+                 "properties":
+                    {
+                     "triggerGroups":"5"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -386,6 +424,14 @@
                  "height":32,
                  "id":68,
                  "name":"s3_door1",
+                 "properties":
+                    {
+                     "triggerGroups":"5"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -398,6 +444,14 @@
                  "height":32,
                  "id":69,
                  "name":"s4_door1",
+                 "properties":
+                    {
+                     "triggerGroups":"8"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -410,6 +464,14 @@
                  "height":32,
                  "id":70,
                  "name":"s3_door2",
+                 "properties":
+                    {
+                     "triggerGroups":"7"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -424,11 +486,11 @@
                  "name":"s1_door2",
                  "properties":
                     {
-                     "triggerGroup":2
+                     "triggerGroups":"2"
                     },
                  "propertytypes":
                     {
-                     "triggerGroup":"int"
+                     "triggerGroups":"string"
                     },
                  "rotation":0,
                  "type":"Door",
@@ -442,6 +504,14 @@
                  "height":32,
                  "id":72,
                  "name":"s2_door1",
+                 "properties":
+                    {
+                     "triggerGroups":"2"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -454,6 +524,14 @@
                  "height":32,
                  "id":73,
                  "name":"s2_door3",
+                 "properties":
+                    {
+                     "triggerGroups":"3, 4, 5"
+                    },
+                 "propertytypes":
+                    {
+                     "triggerGroups":"string"
+                    },
                  "rotation":0,
                  "type":"Door",
                  "visible":true,
@@ -508,6 +586,50 @@
                  "width":32,
                  "x":352,
                  "y":544
+                }, 
+                {
+                 "gid":62,
+                 "height":32,
+                 "id":85,
+                 "name":"s3_challenge1",
+                 "properties":
+                    {
+                     "triggerCompletionId":7,
+                     "triggerInitId":6
+                    },
+                 "propertytypes":
+                    {
+                     "triggerCompletionId":"int",
+                     "triggerInitId":"int"
+                    },
+                 "rotation":0,
+                 "type":"Challenge",
+                 "visible":true,
+                 "width":32,
+                 "x":576,
+                 "y":640
+                }, 
+                {
+                 "gid":62,
+                 "height":32,
+                 "id":86,
+                 "name":"s2_challenge1",
+                 "properties":
+                    {
+                     "triggerCompletionId":5,
+                     "triggerInitId":4
+                    },
+                 "propertytypes":
+                    {
+                     "triggerCompletionId":"int",
+                     "triggerInitId":"int"
+                    },
+                 "rotation":0,
+                 "type":"Challenge",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":416
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1052,7 +1174,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":85,
+ "nextobjectid":87,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -1064,8 +1186,13 @@
          "imageheight":400,
          "imagewidth":640,
          "margin":0,
-         "name":"Tiles2",
+         "name":"Tileset",
          "spacing":0,
+         "terrains":[
+                {
+                 "name":"New Terrain",
+                 "tile":-1
+                }],
          "tilecount":240,
          "tileheight":32,
          "tilewidth":32,

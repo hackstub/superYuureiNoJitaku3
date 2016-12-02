@@ -1,4 +1,3 @@
-- Collisions with object layer (i.e. cannot walk on closed doors)
 - Smoother movements at least for monsters (x and y independently from each others)
 - Monsters should look in the direction they're walking
 - Refactorize sprites loading

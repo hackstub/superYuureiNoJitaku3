@@ -6,19 +6,11 @@ class Challenge(GameObject) :
 
     def __init__(self, name, x, y, tileInfo, properties) :
 
-        GameObject.__init__(self, name, x, y, tileInfo, properties)
+        GameObject.__init__(self, name, x, y, tileInfo)
 
-        if ("id" not in self.properties) : 
-            print("Warning ! Property id is not set for object "+self.name)
-            self.properties["id"] = -1
-
-        if ("triggerInitId" not in self.properties) : 
-            print("Warning ! Property triggerInitId is not set for object "+self.name)
-            self.properties["triggerInitId"] = -1
-
-        if ("triggerCompletionId" not in self.properties) : 
-            print("Warning ! Property triggerCompletionId is not set for object "+self.name)
-            self.properties["triggerCompletionId"] = -1
+        self.loadProperty(properties, "id", -1)
+        self.loadProperty(properties, "triggerInitId", -1)
+        self.loadProperty(properties, "triggerCompletionId", -1)
 
         self.visible = False
         self.ongoing = False
@@ -30,12 +22,10 @@ class Challenge(GameObject) :
 
         if (self.ongoing) :
 
-            id_ = self.properties["triggerInitId"] 
-            
-            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerInitId"]) :
+            for obj in shared.objectsInTriggerGroup(self.triggerInitId) :
                 if (not obj.isCompleted()) : return False
 
-            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerCompletionId"]) :
+            for obj in shared.objectsInTriggerGroup(self.triggerCompletionId) :
                 obj.trigger(self)
 
             self.active = False
@@ -46,7 +36,7 @@ class Challenge(GameObject) :
             
             self.ongoing = True
             
-            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerInitId"]) :
+            for obj in shared.objectsInTriggerGroup(self.triggerInitId) :
                 obj.trigger(self)
 
             return True

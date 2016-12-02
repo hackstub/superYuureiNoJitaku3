@@ -6,11 +6,9 @@ class TeleportIn(GameObject) :
 
     def __init__(self, name, x, y, tileInfo, properties) :
 
-        GameObject.__init__(self, name, x, y, tileInfo, properties)
+        GameObject.__init__(self, name, x, y, tileInfo)
 
-        if ("nameOut" not in self.properties) : 
-            print("Warning ! Property id is not set for object "+self.name)
-            self.properties["nameOut"] = -1
+        self.loadProperty(properties, "nameOut", "")
 
     def update(self) :
 
@@ -19,11 +17,8 @@ class TeleportIn(GameObject) :
 
         if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/2) :
             
-            out = shared.searchObjectsByName(self.properties["nameOut"])
-            if (len(out) != 1) :
-                print("Error ! Cannot teleport ! Multiple or none out found !")
-            
-            x, y = out[0].position()
+            out = shared.searchObjectByName(self.nameOut)
+            x, y = out.position()
             shared.hero.x, shared.hero.y = x, y
 
         return False

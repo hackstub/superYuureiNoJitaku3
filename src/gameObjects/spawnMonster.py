@@ -7,15 +7,10 @@ class SpawnMonster(GameObject) :
 
     def __init__(self, name, x, y, tileInfo, properties) :
 
-        GameObject.__init__(self, name, x, y, tileInfo, properties)
+        GameObject.__init__(self, name, x, y, tileInfo)
 
-        if ("triggerGroup" not in self.properties) : 
-            print("Warning ! Property triggerGroup is not set for object "+self.name)
-            self.properties["triggerGroup"] = -1
-
-        if ("monsterType" not in self.properties) : 
-            print("Warning ! Property monsterType is not set for object "+self.name)
-            self.properties["monsterType"] = None
+        self.loadProperty(properties, "triggerGroups", "")
+        self.loadProperty(properties, "monsterType", "")
 
         self.visible = False
         self.completed = False

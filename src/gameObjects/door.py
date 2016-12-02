@@ -6,30 +6,22 @@ class Door(GameObject) :
 
     def __init__(self, name, x, y, tileInfo, properties) :
 
-        GameObject.__init__(self, name, x, y, tileInfo, properties)
+        GameObject.__init__(self, name, x, y, tileInfo)
+   
+        self.loadProperty(properties, "triggerGroups", "")
+        self.loadProperty(properties, "state", False)
 
-        if ("triggerGroup" not in self.properties) : 
-            print("Warning ! Property triggerGroup is not set for object "+self.name)
-            self.properties["triggerGroup"] = -1
-
-        if ("state" not in self.properties) : 
-            print("Warning ! Property state is not set for object "+self.name)
-            self.properties["state"] = False
-
-        self.visible = not self.properties["state"]
+        self.visible = not self.state
 
     def render(self) :
 
-        if (self.properties["state"] == False) :
+        if (self.state == False) :
             shared.view.blit(self.tile, (self.x, self.y))
 
     def trigger(self, source) :
 
-        self.properties["state"] = not self.properties["state"] 
-        self.visible = not self.properties["state"]
-
-
-
+        self.state = not self.state
+        self.visible = not self.state
 
 
 

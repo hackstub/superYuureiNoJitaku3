@@ -3,11 +3,11 @@
  <objecttype name="SpawnHero" color="#ffbe3e"/>
  <objecttype name="SpawnMonster" color="#ff0002">
   <property name="monsterType" type="string"/>
-  <property name="triggerGroup" type="int" default="-1"/>
+  <property name="triggerGroups" type="string"/>
  </objecttype>
  <objecttype name="Door" color="#a0a0a4">
   <property name="state" type="bool" default="false"/>
-  <property name="triggerGroup" type="int" default="-1"/>
+  <property name="triggerGroups" type="string"/>
  </objecttype>
  <objecttype name="Trigger" color="#58d466">
   <property name="condition" type="string"/>

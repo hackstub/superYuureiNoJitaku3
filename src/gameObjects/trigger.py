@@ -7,11 +7,9 @@ class Trigger(GameObject) :
 
     def __init__(self, name, x, y, tileInfo, properties) :
 
-        GameObject.__init__(self, name, x, y, tileInfo, properties)
+        GameObject.__init__(self, name, x, y, tileInfo)
 
-        if ("id" not in self.properties) : 
-            print("Warning ! Property id is not set for object "+self.name)
-            self.properties["id"] = -1
+        self.loadProperty(properties, "id", -1)
 
         self.visible = False
 
@@ -25,7 +23,7 @@ class Trigger(GameObject) :
             
             self.active = False
             
-            for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["id"]) :
+            for obj in shared.objectsInTriggerGroup(self.id) :
                 obj.trigger(self)
     
         return True

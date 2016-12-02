@@ -64,31 +64,25 @@ def isWalkable(source, pos, ignoreEnnemies = False, ignoreList = [ ]) :
 
     return True
 
-def searchObjectsByProperty(property,value) :
+def objectsInTriggerGroup(id) :
 
     L = []
 
     for obj in map.layer["objects"] :
         if (type(obj) == int) : continue
-        if (property not in obj.properties) : continue
-        if (obj.properties[property] != value) : continue
+        if (not hasattr(obj, "triggerGroups")) : continue
+        if (id not in obj.triggerGroups) : continue
 
         L.append(obj)
 
     return L
 
-def searchObjectsByName(name) :
-
-    L = []
+def searchObjectByName(name) :
 
     for obj in map.layer["objects"] :
         if (type(obj) == int) : continue
-        if (obj.name != name) : continue
-
-        L.append(obj)
-
-    return L
-
+        if (obj.name == name) : 
+            return obj
 
 
 class Damage() :
