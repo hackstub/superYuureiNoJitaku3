@@ -15,7 +15,7 @@ class TeleportIn(GameObject) :
     def update(self) :
 
         if not self.active : 
-            return
+            return False
 
         if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/2) :
             
@@ -26,4 +26,5 @@ class TeleportIn(GameObject) :
             x, y = out[0].position()
             shared.hero.x, shared.hero.y = x, y
 
+        return False
 

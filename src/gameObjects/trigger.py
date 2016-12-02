@@ -19,12 +19,14 @@ class Trigger(GameObject) :
     def update(self) :
 
         if not self.active : 
-            return
+            return False
 
-        if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/2) :
+        if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/4) :
             
             self.active = False
             
             for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["id"]) :
                 obj.trigger(self)
+    
+        return True
 

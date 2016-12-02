@@ -61,7 +61,7 @@ class Map() :
             #print "Loading object " + name + " (" + objType + ") ..."
 
             c = shared.strToObjectClass(objType)
-            theObj = c(name, x, y, (tileId, shared.tileset.tiles[tileId - 1]), properties)
+            theObj = c(name, x, y, (tileId-1, shared.tileset.tiles[tileId - 1]), properties)
             objectLayer[x + y * self.width] = theObj
 
         return objectLayer
@@ -92,9 +92,17 @@ class Map() :
                 tile.render()
 
     def update(self) :
-    
+   
+        atLeastOneObjectUpdated = False
+
         for obj in self.layer["objects"] :
-           if (type(obj) != int) : obj.update()
+           if (type(obj) != int) : 
+               updated = obj.update()
+               if (updated) :
+                   atLeastOneObjectUpdated = True
+
+        if (atLeastOneObjectUpdated) :
+            self.makeWalkabilityMask()
 
     def render(self) :
     
@@ -106,9 +114,13 @@ class Map() :
 
         mask = pygame.mask.Mask(self.pixelSize())
 
-        for layerName in [ "ground", "mid"] :
+        for layerName in [ "ground", "mid", "objects" ] :
             for (i, tile) in enumerate(self.layer[layerName]) :
                 
+                if (type(tile) != int) :
+                    if (tile.visible) : tile = tile.tileId
+                    else : tile = -1
+
                 if (tile == -1) : continue
 
                 xPix = int((i % self.width) + 0.5) * shared.tileSize

@@ -51,6 +51,8 @@ class Light(GameObject) :
 
             self.tile = self.sprites[self.currentSpriteId]
             self.halo = self.halos[self.currentSpriteId%4]
+
+        return False
             
     def render(self) :
 

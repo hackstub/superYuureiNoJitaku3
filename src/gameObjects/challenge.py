@@ -26,27 +26,31 @@ class Challenge(GameObject) :
     def update(self) :
 
         if not self.active : 
-            return
+            return False
 
         if (self.ongoing) :
 
             id_ = self.properties["triggerInitId"] 
             
             for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerInitId"]) :
-                if (not obj.isCompleted()) : return
+                if (not obj.isCompleted()) : return False
 
             for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerCompletionId"]) :
                 obj.trigger(self)
 
             self.active = False
 
-            return
+            return True
 
-        if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/2) :
+        if (shared.distance(self.position(), shared.hero.position()) < shared.tileSize/4) :
             
             self.ongoing = True
             
             for obj in shared.searchObjectsByProperty("triggerGroup", self.properties["triggerInitId"]) :
                 obj.trigger(self)
+
+            return True
+
+        return False
 
 

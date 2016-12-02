@@ -31,7 +31,7 @@ class GameObject() :
 
     def update(self) :
 
-        pass
+        return False
 
     def trigger(self, source) :
 

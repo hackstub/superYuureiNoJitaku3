@@ -16,6 +16,8 @@ class Door(GameObject) :
             print("Warning ! Property state is not set for object "+self.name)
             self.properties["state"] = False
 
+        self.visible = not self.properties["state"]
+
     def render(self) :
 
         if (self.properties["state"] == False) :
@@ -24,6 +26,7 @@ class Door(GameObject) :
     def trigger(self, source) :
 
         self.properties["state"] = not self.properties["state"] 
+        self.visible = not self.properties["state"]
 
 
 
